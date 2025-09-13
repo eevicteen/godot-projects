@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://dv4chwfh0o7c7"]
+
+[ext_resource type="Texture2D" uid="uid://d0eh5myt5lmo7" path="res://assets/sprites/idle_animate.png" id="1_rwm0n"]
+[ext_resource type="Script" uid="uid://dk5s4wikjafgt" path="res://assets/scripts/player_controller.gd" id="1_s027a"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rwm0n"]
+radius = 44.0
+height = 186.0
+
+[node name="player" type="CharacterBody2D"]
+script = ExtResource("1_s027a")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(809, 701)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(809, 699)
+shape = SubResource("CapsuleShape2D_rwm0n")
+
+[node name="AgentAnimator" type="Node2D" parent="."]
+position = Vector2(809, 700)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AgentAnimator"]
+root_node = NodePath("../..")
+
+[node name="Still" type="Sprite2D" parent="AgentAnimator/AnimationPlayer"]
+position = Vector2(809.5, 699)
+scale = Vector2(3.84375, 3.79167)
+texture = ExtResource("1_rwm0n")
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 48)
