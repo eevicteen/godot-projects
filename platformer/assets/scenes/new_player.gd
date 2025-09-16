@@ -4,6 +4,18 @@ extends CharacterBody2D
 var speed_multiplier := 30.0
 
 @onready var anim := $AgentAnimator/AnimatedSprite2D
+@onready var idle_timer := $IdleTimer
+@onready var jump_start_timer := $JumpStartTimer
+
+var is_idle:= false
+var was_on_floor:= true
+
+signal idle
+
+func _ready() -> void:
+	idle.connect(_on_idle)
+	idle_timer.timeout.connect(_on_idle_timer_timeout)
+	
 
 func _physics_process(delta: float) -> void:
 	# Apply gravity
@@ -12,7 +24,7 @@ func _physics_process(delta: float) -> void:
 
 	# Jump
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = -300
+		velocity.y = -500
 		anim.play("jump")
 
 	# Horizontal movement
@@ -26,17 +38,35 @@ func _physics_process(delta: float) -> void:
 
 	# Animation state machine
 	if not is_on_floor():
-		# In air → jump animation
-		if anim.animation != "jump":
-			anim.play("jump")
+		if was_on_floor:
+			anim.play("jump_start")
+			jump_start_timer.start(0.1) 
+			was_on_floor = false
+		elif velocity.y < 0:
+			if jump_start_timer.is_stopped():
+				if anim.animation != "jump_up":
+					anim.play("jump_up")
+		else:
+			if anim.animation != "jump_down":
+				anim.play("jump_down")
 	else:
-		# On ground → run if moving, idle if still
-		if abs(velocity.x) > 10:  # small threshold avoids flicker
+		if not was_on_floor:
+			anim.play('still')
+			was_on_floor = true
+		if abs(velocity.x) > 10:
 			if anim.animation != "run":
 				anim.play("run")
+				is_idle = false
 		else:
-			if anim.animation != "idle":
-				anim.play("idle")
+			if not is_idle:
+				anim.play("still")
+				is_idle = true
+				idle.emit()
 
-	# Debug
-	# print("Animation playing:", anim.animation, " vel:", velocity, " on_floor:", is_on_floor())
+func _on_idle() -> void:
+	print("Idle signal received → starting timer")
+	idle_timer.start(3)
+
+func _on_idle_timer_timeout() -> void:
+	print("Timer finished → switching to idle animation")
+	anim.play("idle")

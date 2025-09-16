@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 const SPEED := 300.0            # horizontal speed in pixels/sec
-const JUMP_VELOCITY := -400.0   # negative = up
+const JUMP_VELOCITY := -1200.0   # negative = up
 
 func _ready() -> void:
 	print("Player script READY – scene and script are running.")

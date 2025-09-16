@@ -1,13 +1,17 @@
-[gd_scene load_steps=42 format=3 uid="uid://djiqfr6vhhrf3"]
+[gd_scene load_steps=47 format=3 uid="uid://djiqfr6vhhrf3"]
 
 [ext_resource type="Script" uid="uid://bmlpc0n4y5gj6" path="res://assets/scenes/new_player.gd" id="1_bblal"]
 [ext_resource type="Texture2D" uid="uid://d0eh5myt5lmo7" path="res://assets/sprites/idle_animate.png" id="2_274ru"]
 [ext_resource type="Texture2D" uid="uid://dy6db24yu751r" path="res://assets/sprites/jump.png" id="3_6gmke"]
 [ext_resource type="Texture2D" uid="uid://d0wte7r82illt" path="res://assets/sprites/run.png" id="3_astyf"]
+[ext_resource type="Texture2D" uid="uid://d24s4etx4ma6f" path="res://assets/sprites/jump_down.png" id="4_pqxbh"]
+[ext_resource type="Texture2D" uid="uid://dp0q4hs4nf7u8" path="res://assets/sprites/jump_end.png" id="5_0xic6"]
+[ext_resource type="Texture2D" uid="uid://dpal6b6pigh38" path="res://assets/sprites/still.png" id="5_4o6yi"]
+[ext_resource type="Texture2D" uid="uid://priiwdplr1yi" path="res://assets/sprites/jump_up.png" id="5_6b8rv"]
+[ext_resource type="Texture2D" uid="uid://dxusn25k6m2xh" path="res://assets/sprites/jump_start.png" id="6_eh224"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_274ru"]
-radius = 21.0
-height = 68.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6gmke"]
+size = Vector2(26, 57)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_274ru"]
 atlas = ExtResource("2_274ru")
@@ -238,6 +242,44 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("4_pqxbh")
+}],
+"loop": true,
+"name": &"jump_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_0xic6")
+}],
+"loop": true,
+"name": &"jump_end",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_eh224")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_eh224")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_eh224")
+}],
+"loop": true,
+"name": &"jump_start",
+"speed": 0.5
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_6b8rv")
+}],
+"loop": true,
+"name": &"jump_up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_5slvo")
 }, {
 "duration": 1.0,
@@ -269,16 +311,25 @@ animations = [{
 }],
 "loop": true,
 "name": &"run",
-"speed": 6.0
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_4o6yi")
+}],
+"loop": true,
+"name": &"still",
+"speed": 5.0
 }]
 
 [node name="new_player" type="CharacterBody2D"]
 position = Vector2(0, -6)
 script = ExtResource("1_bblal")
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(99, -25)
-shape = SubResource("CapsuleShape2D_274ru")
+position = Vector2(99, -25.5)
+shape = SubResource("RectangleShape2D_6gmke")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(98, -58)
@@ -289,9 +340,18 @@ zoom = Vector2(3, 3)
 position = Vector2(100, 0)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AgentAnimator"]
-position = Vector2(3, -21)
-scale = Vector2(1.08333, 1.19792)
+position = Vector2(-1, -25)
+scale = Vector2(1.16666, 1.19792)
 sprite_frames = SubResource("SpriteFrames_5slvo")
-animation = &"jump"
+animation = &"run"
 autoplay = "idle"
-frame_progress = 0.870215
+
+[node name="IdleTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="JumpStartTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="idle" from="." to="." method="_on_idle"]
+[connection signal="idle" from="." to="IdleTimer" method="_on_new_player_idle"]
+[connection signal="timeout" from="IdleTimer" to="." method="_on_timer_timeout"]
