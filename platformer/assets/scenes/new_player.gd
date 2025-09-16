@@ -1,13 +1,14 @@
 extends CharacterBody2D
 
 @export var speed := 10.0
-const acceleration := 700.0
+var acceleration := 700.0
 const max_speed = 300
 const friction = 900
 
 @onready var anim := $AgentAnimator/AnimatedSprite2D
 @onready var idle_timer := $IdleTimer
 @onready var jump_start_timer := $JumpStartTimer
+@onready var tilemap = get_parent().get_node('CollisionTiles')
 
 var is_idle:= false
 var was_on_floor:= true
@@ -40,7 +41,17 @@ func _physics_process(delta: float) -> void:
 			velocity.x = max(velocity.x - friction*delta, 0)
 		elif velocity.x < 0:
 			velocity.x = min(velocity.x + friction*delta, 0)
-
+			
+	#Check for slow tile
+	var tile_pos = tilemap.local_to_map(global_position) + Vector2i(0,1)
+	print("local pos", position.x)
+	var tile_data = tilemap.get_cell_tile_data(0, tile_pos,false)
+	print("Tile Pos:", tile_pos, "Tile Data:", tile_data)
+	if tile_data:
+		var slow_v = tile_data.get_custom_data("SlowVx")
+		print("SlowVx:", tile_data.get_custom_data("SlowVx"))
+		if slow_v != 0: velocity.x = velocity.x * (slow_v) 
+	
 	# Move
 	move_and_slide()
 
@@ -72,9 +83,7 @@ func _physics_process(delta: float) -> void:
 				idle.emit()
 
 func _on_idle() -> void:
-	print("Idle signal received → starting timer")
 	idle_timer.start(3)
 
 func _on_idle_timer_timeout() -> void:
-	print("Timer finished → switching to idle animation")
 	anim.play("idle")
