@@ -1,7 +1,9 @@
 extends CharacterBody2D
 
 @export var speed := 10.0
-var speed_multiplier := 30.0
+const acceleration := 700.0
+const max_speed = 300
+const friction = 900
 
 @onready var anim := $AgentAnimator/AnimatedSprite2D
 @onready var idle_timer := $IdleTimer
@@ -29,9 +31,15 @@ func _physics_process(delta: float) -> void:
 
 	# Horizontal movement
 	var dir = Input.get_axis("ui_left", "ui_right")
-	velocity.x = dir * 300
+	velocity.x += dir * acceleration * delta
+	velocity.x = clamp(velocity.x, -1*max_speed, max_speed)
 	if dir != 0:
 		anim.flip_h = dir < 0
+	else:
+		if velocity.x > 0:
+			velocity.x = max(velocity.x - friction*delta, 0)
+		elif velocity.x < 0:
+			velocity.x = min(velocity.x + friction*delta, 0)
 
 	# Move
 	move_and_slide()
