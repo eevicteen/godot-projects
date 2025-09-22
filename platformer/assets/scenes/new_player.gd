@@ -80,10 +80,11 @@ func _physics_process(delta: float) -> void:
 			if not is_idle:
 				anim.play("still")
 				is_idle = true
-				idle.emit()
+				idle.emit() #Start the idle timer when player is not moving
 
+#Idle Timer Handlling
 func _on_idle() -> void:
-	idle_timer.start(3)
+	idle_timer.start(3) #Start idle animation after 3 seconds
 
 func _on_idle_timer_timeout() -> void:
 	anim.play("idle")
