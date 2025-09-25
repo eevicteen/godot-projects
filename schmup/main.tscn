@@ -11,3 +11,5 @@ scale = Vector2(0.4, 0.4)
 
 [node name="MobCupcake" parent="." instance=ExtResource("2_0xm2m")]
 position = Vector2(475, 227)
+
+[connection signal="area_entered" from="MobCupcake" to="Player" method="_on_mob_cupcake_area_entered"]

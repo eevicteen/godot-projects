@@ -18,6 +18,7 @@ animations = [{
 }]
 
 [node name="Player" type="Area2D"]
+collision_mask = 6
 script = ExtResource("1_onrkg")
 metadata/_edit_group_ = true
 
@@ -29,3 +30,5 @@ shape = SubResource("RectangleShape2D_hqtel")
 position = Vector2(1.5, -3.8147e-06)
 scale = Vector2(0.463415, 0.355556)
 sprite_frames = SubResource("SpriteFrames_sweqy")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
