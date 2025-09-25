@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://ksq2wxcbudps"]
+
+[ext_resource type="Script" uid="uid://dy30qtw23a8c8" path="res://bullet.gd" id="1_v8qja"]
+[ext_resource type="Texture2D" uid="uid://dbitoa5t1exm0" path="res://icon.svg" id="1_xy1m7"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t4vbm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_xy1m7")
+}],
+"loop": true,
+"name": &"cupcake_bullet",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xy1m7"]
+size = Vector2(58, 58)
+
+[node name="Bullet" type="Area2D"]
+script = ExtResource("1_v8qja")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.46, 0.46)
+sprite_frames = SubResource("SpriteFrames_t4vbm")
+animation = &"cupcake_bullet"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_xy1m7")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

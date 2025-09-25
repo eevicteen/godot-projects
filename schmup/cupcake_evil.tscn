@@ -1,0 +1,65 @@
+[gd_scene load_steps=8 format=3 uid="uid://m607jsth10g6"]
+
+[ext_resource type="Script" uid="uid://dimwoirbct7s2" path="res://cupcake_evil.gd" id="1_sma8k"]
+[ext_resource type="Texture2D" uid="uid://ducuudpjmv500" path="res://assets/cupcake evil/cupcake evil1.png" id="1_vqped"]
+[ext_resource type="Texture2D" uid="uid://cjey8cfqrdjj5" path="res://assets/cupcake evil/cupcake evil2.png" id="2_sma8k"]
+[ext_resource type="Texture2D" uid="uid://b0xbqjvohcjc" path="res://assets/cupcake evil/cupcake evil3.png" id="3_a2fro"]
+[ext_resource type="PackedScene" uid="uid://ksq2wxcbudps" path="res://bullet.tscn" id="7_a2fro"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6e1rf"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_vqped")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_sma8k")
+}, {
+"duration": 0.3,
+"texture": ExtResource("3_a2fro")
+}],
+"loop": false,
+"name": &"shoot",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_vqped")
+}],
+"loop": true,
+"name": &"still",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fn85y"]
+radius = 21.0
+
+[node name="MobCupcake" type="Area2D"]
+scale = Vector2(1.48, 1.48)
+script = ExtResource("1_sma8k")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_6e1rf")
+animation = &"shoot"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 2)
+shape = SubResource("CircleShape2D_fn85y")
+
+[node name="ShootTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Bullet" parent="." instance=ExtResource("7_a2fro")]
+
+[node name="ShootStartupTimer" type="Timer" parent="."]
+wait_time = 0.147
+one_shot = true
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

@@ -1,8 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://dt152jx7ex0p6"]
+[gd_scene load_steps=3 format=3 uid="uid://dt152jx7ex0p6"]
 
 [ext_resource type="PackedScene" uid="uid://cm0o0rcojinev" path="res://player.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://m607jsth10g6" path="res://cupcake_evil.tscn" id="2_0xm2m"]
 
 [node name="Main" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
-scale = Vector2(0.605, 0.605)
+position = Vector2(377, 224)
+scale = Vector2(0.4, 0.4)
+
+[node name="MobCupcake" parent="." instance=ExtResource("2_0xm2m")]
+position = Vector2(475, 227)

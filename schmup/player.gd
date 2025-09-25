@@ -1,6 +1,6 @@
 extends Area2D
 
-const SPEED = 300
+const SPEED = 420
 
 var screen_size
 
