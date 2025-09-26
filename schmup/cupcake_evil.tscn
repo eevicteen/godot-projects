@@ -23,7 +23,7 @@ animations = [{
 "duration": 0.3,
 "texture": ExtResource("3_a2fro")
 }],
-"loop": true,
+"loop": false,
 "name": &"shoot",
 "speed": 3.0
 }, {
@@ -65,7 +65,6 @@ one_shot = true
 [node name="Bullet" parent="." instance=ExtResource("7_a2fro")]
 
 [node name="ShootStartupTimer" type="Timer" parent="."]
-wait_time = 0.147
 one_shot = true
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

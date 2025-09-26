@@ -1,32 +1,23 @@
 extends Area2D
 
-@export var speed: float = 600
-var direction: Vector2 = Vector2.RIGHT
-var source: Node = null
-@onready var small_explosion_scene: PackedScene = preload("res://SmallExplosion.tscn")
+@export var SPEED: float = 400
+var dir: float
+var spawn_pos: Vector2
+var spawn_rot: float
+var type: String
+@onready var anim_sprite: AnimatedSprite2D = $AnimatedSprite2D
+var source: Node = null  # to prevent hitting the shooter
 
-func _ready():
-	connect("area_entered", Callable(self, "_on_area_entered"))
+func _ready() -> void:
+	global_position = spawn_pos
+	global_rotation = spawn_rot
 
-func _physics_process(delta: float) -> void:
-	position += direction.normalized() * speed * delta
+	if anim_sprite:
+		anim_sprite.animation = type
+		anim_sprite.play()
+
+func _process(delta: float) -> void:
+	global_position += Vector2(0, SPEED).rotated(dir) * delta
+
 	if not get_viewport_rect().grow(50).has_point(global_position):
-		queue_free()
-
-func _on_area_entered(area: Area2D) -> void:
-	if area == source:
-		return
-
-	if area.is_in_group("mob"):
-		print("enemy hit")
-		# Spawn small explosion
-		var small_exp = small_explosion_scene.instantiate()
-		small_exp.global_position = global_position
-		get_tree().current_scene.add_child(small_exp)
-
-		# Tell enemy to take damage safely
-		if area.has_method("take_damage"):
-			area.take_damage(1)
-
-		# Remove bullet
 		queue_free()

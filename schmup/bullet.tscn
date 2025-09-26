@@ -27,7 +27,6 @@ scale = Vector2(2.30469, 2.25)
 sprite_frames = SubResource("SpriteFrames_t4vbm")
 animation = &"cupcake_bullet"
 autoplay = "cupcake_bullet"
-frame_progress = 0.57643
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_b7duk")
