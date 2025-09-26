@@ -1,9 +1,10 @@
-extends Node2D  # or Area2D if you want collision
+extends Node2D
 
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 
 func _ready():
-	anim.play()
+	anim.play("SmallExplosion")
+	anim.animation_finished.connect(_on_animation_finished)
 
-func _on_AnimatedSprite2D_animation_finished():
+func _on_animation_finished() -> void:
 	queue_free()

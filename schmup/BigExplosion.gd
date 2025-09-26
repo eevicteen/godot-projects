@@ -1,11 +1,10 @@
-extends Area2D
+extends Node2D
 
+@onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+func _ready():
+	anim.play("BigExplosion")
+	anim.animation_finished.connect(_on_animation_finished)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func _on_animation_finished() -> void:
+	queue_free()

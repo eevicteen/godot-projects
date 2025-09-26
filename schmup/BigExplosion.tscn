@@ -34,7 +34,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_6fp72")
 }],
-"loop": true,
+"loop": false,
 "name": &"BigExplosion",
 "speed": 5.0
 }]
@@ -47,4 +47,5 @@ position = Vector2(-0.999996, 22)
 scale = Vector2(7.98437, 8.00781)
 sprite_frames = SubResource("SpriteFrames_s15h6")
 animation = &"BigExplosion"
+autoplay = "BigExplosion"
 frame_progress = 0.396496

@@ -88,7 +88,6 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D"]
-collision_layer = 2
 script = ExtResource("1_onrkg")
 metadata/_edit_group_ = true
 

@@ -18,14 +18,15 @@ func _on_area_entered(area: Area2D) -> void:
 		return
 
 	if area.is_in_group("mob"):
-		print("enemy hit")  # debug
+		print("enemy hit")
 		# Spawn small explosion
 		var small_exp = small_explosion_scene.instantiate()
 		small_exp.global_position = global_position
 		get_tree().current_scene.add_child(small_exp)
 
-		# Tell enemy to die
-		area.take_damage(1)
+		# Tell enemy to take damage safely
+		if area.has_method("take_damage"):
+			area.take_damage(1)
 
 		# Remove bullet
 		queue_free()

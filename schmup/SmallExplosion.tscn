@@ -41,8 +41,8 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ai44l")
 }],
-"loop": true,
-"name": &"explode",
+"loop": false,
+"name": &"SmallExplosion",
 "speed": 5.0
 }]
 
@@ -53,6 +53,5 @@ script = ExtResource("1_jwag1")
 position = Vector2(3.8147e-06, 15)
 scale = Vector2(3.42969, 3.38282)
 sprite_frames = SubResource("SpriteFrames_pdb5b")
-animation = &"explode"
-autoplay = "explode"
-frame_progress = 0.0360549
+animation = &"SmallExplosion"
+autoplay = "SmallExplosion"

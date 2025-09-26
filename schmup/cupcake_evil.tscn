@@ -23,7 +23,7 @@ animations = [{
 "duration": 0.3,
 "texture": ExtResource("3_a2fro")
 }],
-"loop": false,
+"loop": true,
 "name": &"shoot",
 "speed": 3.0
 }, {
@@ -42,7 +42,8 @@ size = Vector2(116.216, 117.568)
 [node name="MobCupcake" type="Area2D" groups=["mob"]]
 position = Vector2(97, 20)
 scale = Vector2(1.48, 1.48)
-collision_layer = 2
+collision_layer = 4
+collision_mask = 2
 script = ExtResource("1_sma8k")
 metadata/_edit_group_ = true
 
@@ -52,6 +53,7 @@ position = Vector2(-0.337833, -1.01351)
 scale = Vector2(2.71678, 2.4634)
 sprite_frames = SubResource("SpriteFrames_6e1rf")
 animation = &"shoot"
+autoplay = "shoot"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.675674, 5.72205e-06)
