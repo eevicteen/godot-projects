@@ -17,6 +17,6 @@ func _on_timer_timeout() -> void:
 		enemy.position.x = screen_size.x + 50
 		enemy.position.y = randf_range(0, screen_size.y)
 		get_tree().current_scene.add_child(enemy)
-		print("Enemy spawned at:", global_position)  # debug
+		print("Enemy spawned at:", global_position) 
 	else:
-		print("No enemy scene assigned!")  # debug
+		print("No enemy scene assigned!")

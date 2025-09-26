@@ -16,13 +16,10 @@ func _ready() -> void:
 	shoot_timer.start()
 
 func _process(delta: float) -> void:
-	# Move left
 	global_position += direction * speed * delta
 
-	# Rotate the enemy visually
 	global_rotation += 1.0 * delta
 
-	# Remove off-screen
 	if not get_viewport_rect().grow(100).has_point(global_position):
 		queue_free()
 
@@ -41,15 +38,13 @@ func die() -> void:
 	queue_free()
 
 func _on_shoot_timer_timeout() -> void:
-	# Play shoot animation
 	if anim_sprite:
 		anim_sprite.animation = "shoot"
 		anim_sprite.play()
 
-	# Spawn bullet flying straight
 	var new_bullet = bullet_scene.instantiate()
-	new_bullet.global_position = global_position  # set position directly
-	new_bullet.direction = Vector2.LEFT  # straight left
+	new_bullet.global_position = global_position 
+	new_bullet.direction = Vector2.LEFT 
 	new_bullet.source = self
 	main.add_child(new_bullet)
 

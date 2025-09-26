@@ -20,7 +20,6 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	var input_vector = Vector2.ZERO
 
-	# --- Movement ---
 	if Input.is_action_pressed("ui_right"):
 		input_vector.x += 1
 	if Input.is_action_pressed("ui_left"):
@@ -41,7 +40,6 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-	# --- Animation flipping ---
 	if input_vector.x != 0:
 		anim_sprite.animation = "run"
 		anim_sprite.flip_h = input_vector.x < 0
@@ -50,12 +48,9 @@ func _physics_process(delta: float) -> void:
 	elif input_vector.y > 0:
 		anim_sprite.animation = "down"
 
-	# --- Shooting ---
 	if Input.is_action_just_pressed("shoot"):
 		shoot()
 
-
-# ---------------------------
 func shoot() -> void:
 	var bullet = bullet_scene.instantiate() 
 	bullet.global_position = global_position
@@ -78,5 +73,4 @@ func update_health_bar() -> void:
 
 func die() -> void:
 	print("Player died!")
-	# You can play a death animation or trigger game over
 	queue_free()

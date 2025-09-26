@@ -11,12 +11,8 @@ func _ready() -> void:
 		anim_sprite.play()
 
 func _process(delta: float) -> void:
-	# Move straight
 	global_position += direction.normalized() * SPEED * delta
 
-	# Optional: spin the bullet visually
-
-	# Remove off-screen
 	if not get_viewport_rect().grow(50).has_point(global_position):
 		queue_free()
 
