@@ -1,47 +1,59 @@
-extends Area2D
+extends CharacterBody2D
 
-const SPEED = 420
-var health = 5
-var test_counter = 1
+const SPEED: float = 420
+var health: int = 10
+var facing_dir: Vector2 = Vector2.RIGHT
 
-var screen_size
+@onready var anim_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var bullet_scene: PackedScene = preload("res://player_bullet.tscn")
+var screen_size: Vector2
 
-func _ready():
+func _ready() -> void:
 	screen_size = get_viewport_rect().size
 
 func _physics_process(delta: float) -> void:
-	var velocity = Vector2.ZERO 
+	var input_vector = Vector2.ZERO
+
+	# --- Movement ---
 	if Input.is_action_pressed("ui_right"):
-		velocity.x += 1
+		input_vector.x += 1
 	if Input.is_action_pressed("ui_left"):
-		velocity.x -= 1
+		input_vector.x -= 1
 	if Input.is_action_pressed("ui_down"):
-		velocity.y += 1
+		input_vector.y += 1
 	if Input.is_action_pressed("ui_up"):
-		velocity.y -= 1
-		
-	if velocity.length() > 0:
-		velocity = velocity.normalized() * SPEED #normalize it to prevent diagonal movement being faster
-		#$AnimatedSprite2D.play()
-	#else:
-		#$AnimatedSprite2D.stop()
-		
-	position += velocity * delta
-	position = position.clamp(Vector2.ZERO, screen_size)
-	
-	#if velocity.x != 0:
-		#$AnimatedSprite2D.animation = "walk"
-		#$AnimatedSprite2D.flip_v = false
-		#$AnimatedSprite2D.flip_h = velocity.x < 0
-	#elif velocity.y != 0:
-		#$AnimatedSprite2D.animation = "up"
-		#$AnimatedSprite2D.flip_v = velocity.y > 0	
-	 
-func _on_area_entered(area: Area2D) -> void:
-	print('heeree')
-	if area.is_in_group("mob"):
-		print("Player takes damage from mob")
-		health -= 1
-	elif area.is_in_group("bullet"):
-		print("Player takes damage from bullet")
-		health -= 1 # Replace with function body.
+		input_vector.y -= 1
+
+	if input_vector.length() > 0:
+		input_vector = input_vector.normalized() * SPEED
+		velocity = input_vector
+		facing_dir = input_vector.normalized()
+		anim_sprite.play()
+	else:
+		velocity = Vector2.ZERO
+		anim_sprite.stop()
+
+	move_and_slide()
+
+	# --- Animation flipping ---
+	if input_vector.x != 0:
+		anim_sprite.animation = "run"
+		anim_sprite.flip_h = input_vector.x < 0
+	elif input_vector.y < 0:
+		anim_sprite.animation = "up"
+	elif input_vector.y > 0:
+		anim_sprite.animation = "down"
+
+	# --- Shooting ---
+	if Input.is_action_just_pressed("shoot"):
+		shoot()
+
+
+# ---------------------------
+func shoot() -> void:
+	var bullet = bullet_scene.instantiate() 
+	bullet.global_position = global_position
+	bullet.direction = facing_dir
+	bullet.source = self
+	get_tree().current_scene.add_child(bullet)
+	print("Bullet fired!")

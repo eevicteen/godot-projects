@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://bjchsqksjidb0"]
+
+[ext_resource type="Script" uid="uid://d24167hj0a8rn" path="res://BigExplosion.gd" id="1_rnjsx"]
+[ext_resource type="Texture2D" uid="uid://cgv3x67gx4sio" path="res://New Piskel (15).png" id="2_qoiqw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e5tiq"]
+atlas = ExtResource("2_qoiqw")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ruhbn"]
+atlas = ExtResource("2_qoiqw")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ows1e"]
+atlas = ExtResource("2_qoiqw")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6fp72"]
+atlas = ExtResource("2_qoiqw")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s15h6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e5tiq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ruhbn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ows1e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6fp72")
+}],
+"loop": true,
+"name": &"BigExplosion",
+"speed": 5.0
+}]
+
+[node name="BigExplosion" type="Node2D"]
+script = ExtResource("1_rnjsx")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-0.999996, 22)
+scale = Vector2(7.98437, 8.00781)
+sprite_frames = SubResource("SpriteFrames_s15h6")
+animation = &"BigExplosion"
+frame_progress = 0.396496

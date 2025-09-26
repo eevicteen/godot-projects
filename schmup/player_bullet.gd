@@ -5,8 +5,9 @@ var direction: Vector2 = Vector2.RIGHT
 var source: Node = null
 @onready var small_explosion_scene: PackedScene = preload("res://SmallExplosion.tscn")
 
-func _ready():
-	connect("area_entered", Callable(self, "_on_area_entered"))
+func _ready() -> void:
+	if not is_connected("area_entered", Callable(self, "_on_area_entered")):
+		connect("area_entered", Callable(self, "_on_area_entered"))
 
 func _physics_process(delta: float) -> void:
 	position += direction.normalized() * speed * delta
@@ -15,17 +16,17 @@ func _physics_process(delta: float) -> void:
 
 func _on_area_entered(area: Area2D) -> void:
 	if area == source:
-		return
+		return  # Don't hit the shooter
 
 	if area.is_in_group("mob"):
-		print("enemy hit")  # debug
+		print("Enemy hit!")  # debug
 		# Spawn small explosion
-		var small_exp = small_explosion_scene.instantiate()
+		var small_exp = small_explosion_scene.instantiate() 
 		small_exp.global_position = global_position
 		get_tree().current_scene.add_child(small_exp)
 
-		# Tell enemy to die
+		# Kill enemy
 		area.take_damage(1)
 
-		# Remove bullet
+		# Destroy bullet
 		queue_free()
