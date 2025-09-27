@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bda7q0jkbodm8"
-path="res://.godot/imported/New Piskel (14).png-b8b50794e96cb4abc3148ecf1d658e5e.ctex"
+uid="uid://dn7g1bv78s6dm"
+path="res://.godot/imported/character1.png-e940d6c0d640f80db974e042caf9f152.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://New Piskel (14).png"
-dest_files=["res://.godot/imported/New Piskel (14).png-b8b50794e96cb4abc3148ecf1d658e5e.ctex"]
+source_file="res://assets/player/character1.png"
+dest_files=["res://.godot/imported/character1.png-e940d6c0d640f80db974e042caf9f152.ctex"]
 
 [params]
 

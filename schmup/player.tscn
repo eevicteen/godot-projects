@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://cm0o0rcojinev"]
 
 [ext_resource type="Script" uid="uid://ciyqejrwqr8dt" path="res://player.gd" id="1_onrkg"]
-[ext_resource type="Texture2D" uid="uid://41atdspwulpf" path="res://character.png" id="2_onrkg"]
+[ext_resource type="Texture2D" uid="uid://41atdspwulpf" path="res://assets/player/character.png" id="2_onrkg"]
 [ext_resource type="Script" uid="uid://bwclmc1fe5uxg" path="res://progress_bar.gd" id="3_i3pqv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hqtel"]
@@ -123,6 +123,9 @@ theme_override_font_sizes/font_size = 60
 max_value = 10.0
 script = ExtResource("3_i3pqv")
 metadata/_edit_use_anchors_ = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
 
 [connection signal="timeout" from="InvincibilityTimer" to="." method="_on_invincibility_timer_timeout"]
 [connection signal="timeout" from="ShootDelayTimer" to="." method="_on_shoot_delay_timer_timeout"]

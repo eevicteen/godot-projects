@@ -48,7 +48,7 @@ light_mask = 2
 position = Vector2(-0.337833, -1.01351)
 scale = Vector2(2.71678, 2.4634)
 sprite_frames = SubResource("SpriteFrames_6e1rf")
-animation = &"shoot"
+animation = &"still"
 autoplay = "shoot"
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]

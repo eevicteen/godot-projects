@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://ksq2wxcbudps"]
+[gd_scene load_steps=8 format=3 uid="uid://ksq2wxcbudps"]
 
 [ext_resource type="Script" uid="uid://dy30qtw23a8c8" path="res://bullet.gd" id="1_v8qja"]
 [ext_resource type="Texture2D" uid="uid://b5rr5j7ows1s5" path="res://bullet2.png" id="3_2b2rl"]
 [ext_resource type="Texture2D" uid="uid://b2yvg0wbtecbp" path="res://bullet1.png" id="3_t4vbm"]
+[ext_resource type="Texture2D" uid="uid://covql0phj5l8m" path="res://bullet4.png" id="4_2b2rl"]
+[ext_resource type="Texture2D" uid="uid://cu8svyu7p0df6" path="res://bullet3.png" id="5_b7duk"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_t4vbm"]
 animations = [{
@@ -17,6 +19,12 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("3_t4vbm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_2b2rl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_b7duk")
 }],
 "loop": true,
 "name": &"player_bullet",
