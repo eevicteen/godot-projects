@@ -1,8 +1,9 @@
 extends Area2D
 
-@export var SPEED: float = 400
+@export var speed := 400
 var direction: Vector2 = Vector2.LEFT
-var source: Node = null
+var source : Node
+@onready var small_explosion_scene: PackedScene = preload("res://SmallExplosion.tscn")
 
 @onready var anim_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
@@ -11,14 +12,38 @@ func _ready() -> void:
 		anim_sprite.play()
 
 func _process(delta: float) -> void:
-	global_position += direction.normalized() * SPEED * delta
+	global_position += direction.normalized() * speed * delta
+	global_rotation += 0.02
 
 	if not get_viewport_rect().grow(50).has_point(global_position):
 		queue_free()
 
-func _on_area_entered(area: Area2D) -> void:
-	if area == source:
-		return
-	if area.has_method("take_damage"):
-		area.take_damage(1)
+func _on_body_entered(body) -> void:
+	print("Hit body:", body.name)
+	if body == source: #prevent bullets hitting their owner
+		return 
+	if body.has_method("take_damage"):
+		body.take_damage(1)
 		queue_free()
+		
+	if body.is_in_group("mob"):
+		print("Enemy hit!")
+		var small_exp = small_explosion_scene.instantiate() 
+		small_exp.global_position = global_position
+		get_tree().current_scene.add_child(small_exp)
+
+		queue_free()
+		
+func setup(pos: Vector2, dir: Vector2, src: Node, col_layer: int, col_mask: int, spd: float, sprite_name: String) -> void:
+	global_position = pos
+	direction = dir
+	source = src
+	self.collision_layer = col_layer
+	self.collision_mask = col_mask
+	speed = spd  
+	call_deferred("_set_animation", sprite_name)
+
+func _set_animation(sprite_name: String) -> void:
+	if anim_sprite:
+		anim_sprite.animation = sprite_name
+		anim_sprite.play()

@@ -12,7 +12,7 @@ func _ready():
 
 func _on_timer_timeout() -> void:
 	if enemy_scene:
-		var enemy = enemy_scene.instantiate() as Area2D
+		var enemy = enemy_scene.instantiate() as CharacterBody2D
 		var screen_size = get_viewport_rect().size
 		enemy.position.x = screen_size.x + 50
 		enemy.position.y = randf_range(0, screen_size.y)

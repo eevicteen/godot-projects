@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://ksq2wxcbudps"]
+[gd_scene load_steps=5 format=3 uid="uid://ksq2wxcbudps"]
 
 [ext_resource type="Script" uid="uid://dy30qtw23a8c8" path="res://bullet.gd" id="1_v8qja"]
 [ext_resource type="Texture2D" uid="uid://b5rr5j7ows1s5" path="res://bullet2.png" id="3_2b2rl"]
-[ext_resource type="Texture2D" uid="uid://b2yvg0wbtecbp" path="res://bullet1.png" id="3_t4vbm"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_t4vbm"]
 animations = [{
@@ -13,14 +12,6 @@ animations = [{
 "loop": true,
 "name": &"cupcake_bullet",
 "speed": 1.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("3_t4vbm")
-}],
-"loop": true,
-"name": &"player_bullet",
-"speed": 5.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b7duk"]
@@ -35,7 +26,7 @@ script = ExtResource("1_v8qja")
 position = Vector2(4.76837e-07, 0)
 scale = Vector2(2.30469, 2.25)
 sprite_frames = SubResource("SpriteFrames_t4vbm")
-animation = &"player_bullet"
+animation = &"cupcake_bullet"
 autoplay = "cupcake_bullet"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
