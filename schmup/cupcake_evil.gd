@@ -16,11 +16,11 @@ func _ready() -> void:
 	shoot_timer.start()
 
 func _process(delta: float) -> void:
-	global_position += direction * speed * delta
+	position += direction * speed * delta
 
-	global_rotation += 1.0 * delta
+	rotation += 1.0 * delta
 
-	if not get_viewport_rect().grow(100).has_point(global_position):
+	if not get_viewport_rect().grow(100).has_point(position):
 		queue_free()
 
 func take_damage(amount: int = 1) -> void:
@@ -35,7 +35,7 @@ func take_damage(amount: int = 1) -> void:
 func die() -> void:
 	if big_explosion_scene:
 		var big_exp = big_explosion_scene.instantiate()
-		big_exp.global_position = global_position
+		big_exp.position = position
 		main.add_child(big_exp)
 	queue_free()
 
@@ -45,7 +45,7 @@ func _on_shoot_timer_timeout() -> void:
 		anim_sprite.play()
 
 	var new_bullet = bullet_scene.instantiate()
-	new_bullet.setup(global_position,Vector2.LEFT,self,4,1, 400, "cupcake_bullet") #col_layer = 4 col_mask = 1 speed = 400
+	new_bullet.setup(position,Vector2.LEFT,self,4,1, 400, "cupcake_bullet") #col_layer = 4 col_mask = 1 speed = 400
 	main.add_child(new_bullet)
 
 	shoot_timer.start()

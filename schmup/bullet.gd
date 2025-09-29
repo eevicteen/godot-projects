@@ -12,10 +12,10 @@ func _ready() -> void:
 		anim_sprite.play()
 
 func _process(delta: float) -> void:
-	global_position += direction.normalized() * speed * delta
-	global_rotation += 0.02
+	position += direction.normalized() * speed * delta
+	rotation += 0.02
 
-	if not get_viewport_rect().grow(50).has_point(global_position):
+	if not get_viewport_rect().grow(50).has_point(position):
 		queue_free()
 
 func _on_body_entered(body) -> void:
@@ -29,13 +29,13 @@ func _on_body_entered(body) -> void:
 	if body.is_in_group("mob"):
 		print("Enemy hit!")
 		var small_exp = small_explosion_scene.instantiate() 
-		small_exp.global_position = global_position
+		small_exp.position = position
 		get_tree().current_scene.add_child(small_exp)
 
 		queue_free()
 		
 func setup(pos: Vector2, dir: Vector2, src: Node, col_layer: int, col_mask: int, spd: float, sprite_name: String) -> void:
-	global_position = pos
+	position = pos
 	direction = dir
 	source = src
 	self.collision_layer = col_layer

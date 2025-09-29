@@ -124,8 +124,5 @@ max_value = 10.0
 script = ExtResource("3_i3pqv")
 metadata/_edit_use_anchors_ = true
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position_smoothing_enabled = true
-
 [connection signal="timeout" from="InvincibilityTimer" to="." method="_on_invincibility_timer_timeout"]
 [connection signal="timeout" from="ShootDelayTimer" to="." method="_on_shoot_delay_timer_timeout"]

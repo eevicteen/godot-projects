@@ -14,9 +14,9 @@ func _on_timer_timeout() -> void:
 	if enemy_scene:
 		var enemy = enemy_scene.instantiate() as CharacterBody2D
 		var screen_size = get_viewport_rect().size
-		enemy.position.x = screen_size.x + 50
-		enemy.position.y = randf_range(0, screen_size.y)
+		enemy.position.x = screen_size.x - 400
+		enemy.position.y = randf_range(0, screen_size.y-150)
 		get_tree().current_scene.add_child(enemy)
-		print("Enemy spawned at:", global_position) 
+		print("Enemy spawned at:", position) 
 	else:
 		print("No enemy scene assigned!")

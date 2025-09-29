@@ -12,7 +12,7 @@ var can_take_damage = true
 @onready var anim_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var bullet_scene: PackedScene = preload("res://Bullet.tscn")
 @onready var health_bar_wrapper: Node2D = $HealthBarWrapper
-@onready var health_bar: ProgressBar = $HealthBarWrapper/ProgressBar
+@onready var health_bar: ProgressBar = $HealthBarWrapper/LifeBar
 @onready var invin_timer = $InvincibilityTimer
 @onready var shoot_delay_timer = $ShootDelayTimer
 var screen_size: Vector2
@@ -20,7 +20,7 @@ var screen_size: Vector2
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
 	if health_bar_wrapper:
-		health_bar_wrapper.global_position = Vector2(0, -40)
+		health_bar_wrapper.position = Vector2(0, -40)
 	update_health_bar()
 
 func _physics_process(delta: float) -> void:
@@ -73,7 +73,7 @@ func _physics_process(delta: float) -> void:
 func shoot() -> void:
 	if can_shoot:
 		var bullet = bullet_scene.instantiate() 
-		bullet.setup(global_position,facing_dir,self,1<<1,1<<2,600,"player_bullet") #col_layer = 2, col_mask = 3, speed = 600
+		bullet.setup(position,facing_dir,self,1<<1,1<<2,600,"player_bullet") #col_layer = 2, col_mask = 3, speed = 600
 		get_tree().current_scene.add_child(bullet)
 		shoot_delay_timer.start()
 	can_shoot = false

@@ -5,18 +5,19 @@
 
 [node name="game_over" type="Control"]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_right = 1.267
+anchor_bottom = 1.278
+offset_right = 0.519897
+offset_bottom = 0.119873
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
 offset_left = 113.0
-offset_top = -32.0
-offset_right = 1354.0
-offset_bottom = 400.0
+offset_top = -246.0
+offset_right = 2225.0
+offset_bottom = 761.0
 theme_override_fonts/font = ExtResource("1_y26ei")
 theme_override_font_sizes/font_size = 100
 text = "Game Over!"
@@ -26,6 +27,9 @@ vertical_alignment = 1
 [node name="TextureRect" type="TextureRect" parent="."]
 z_index = -1
 layout_mode = 0
-offset_right = 1429.0
-offset_bottom = 949.0
+offset_left = -67.0
+offset_top = -132.0
+offset_right = 3077.0
+offset_bottom = 1668.0
 texture = ExtResource("2_yxx3c")
+expand_mode = 3

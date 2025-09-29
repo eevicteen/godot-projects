@@ -13,7 +13,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	position += direction.normalized() * speed * delta
-	if not get_viewport_rect().grow(50).has_point(global_position):
+	if not get_viewport_rect().grow(50).has_point(position):
 		queue_free()
 
 func _on_body_entered(body) -> void:
@@ -23,7 +23,7 @@ func _on_body_entered(body) -> void:
 	if body.is_in_group("mob"):
 		print("Enemy hit!")
 		var small_exp = small_explosion_scene.instantiate() 
-		small_exp.global_position = global_position
+		small_exp.position = position
 		get_tree().current_scene.add_child(small_exp)
 
 		body.take_damage(1)
