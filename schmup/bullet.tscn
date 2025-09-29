@@ -1,10 +1,10 @@
 [gd_scene load_steps=8 format=3 uid="uid://ksq2wxcbudps"]
 
 [ext_resource type="Script" uid="uid://dy30qtw23a8c8" path="res://bullet.gd" id="1_v8qja"]
-[ext_resource type="Texture2D" uid="uid://b5rr5j7ows1s5" path="res://bullet2.png" id="3_2b2rl"]
-[ext_resource type="Texture2D" uid="uid://b2yvg0wbtecbp" path="res://bullet1.png" id="3_t4vbm"]
-[ext_resource type="Texture2D" uid="uid://covql0phj5l8m" path="res://bullet4.png" id="4_2b2rl"]
-[ext_resource type="Texture2D" uid="uid://cu8svyu7p0df6" path="res://bullet3.png" id="5_b7duk"]
+[ext_resource type="Texture2D" uid="uid://b5rr5j7ows1s5" path="res://assets/cupcake evil/bullet2.png" id="3_2b2rl"]
+[ext_resource type="Texture2D" uid="uid://b2yvg0wbtecbp" path="res://assets/player/bullet1.png" id="3_t4vbm"]
+[ext_resource type="Texture2D" uid="uid://covql0phj5l8m" path="res://assets/player/bullet4.png" id="4_2b2rl"]
+[ext_resource type="Texture2D" uid="uid://cu8svyu7p0df6" path="res://assets/player/bullet3.png" id="5_b7duk"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_t4vbm"]
 animations = [{

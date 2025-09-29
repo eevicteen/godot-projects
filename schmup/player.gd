@@ -45,10 +45,8 @@ func _physics_process(delta: float) -> void:
 		velocity = Vector2.ZERO
 		anim_sprite.stop()
 		
-	position = position.clamp(Vector2.ZERO, screen_size)
-
 	move_and_slide()
-	position = position.clamp(Vector2.ZERO, screen_size)
+	
 	
 	#Change Animation Sprite
 	if input_vector.x != 0:
@@ -88,7 +86,7 @@ func take_damage(amount: int = 1) -> void:
 		update_health_bar()
 		flash_sprite()
 		if health <= 0:
-			die()
+			game_over()
 		invin_timer.start()
 		can_take_damage = false
 
@@ -98,10 +96,19 @@ func update_health_bar() -> void:
 		health_bar.max_value = max_health
 		health_bar.value = health
 
+func game_over():
+	# optional: prevent multiple calls
+	can_take_damage = false
+	can_shoot = false
+	anim_sprite.stop()
+	
+	# switch to the Game Over scene
+	get_tree().call_deferred("change_scene_to_file", "res://game_over.tscn")
 
-func die() -> void:
-	print("Player died!")
-	queue_free()
+#func die() -> void:
+	#print("Player died!")
+	#queue_free()
+	#game_over()
 
 
 func _on_invincibility_timer_timeout() -> void:

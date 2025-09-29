@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dcf22abvh83ab"
-path="res://.godot/imported/New Piskel-3png.png-2dfb98d30320de05a20f29854f335319.ctex"
+uid="uid://b5rr5j7ows1s5"
+path="res://.godot/imported/bullet2.png-e640e6f00ff6e110f8e9730ab29928ab.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://New Piskel-3png.png"
-dest_files=["res://.godot/imported/New Piskel-3png.png-2dfb98d30320de05a20f29854f335319.ctex"]
+source_file="res://assets/cupcake evil/bullet2.png"
+dest_files=["res://.godot/imported/bullet2.png-e640e6f00ff6e110f8e9730ab29928ab.ctex"]
 
 [params]
 
