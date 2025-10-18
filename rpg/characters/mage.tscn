@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bskvj55m61lk1"]
+
+[ext_resource type="Script" uid="uid://cn1umyvjidolv" path="res://characters/mage.gd" id="1_tt6rw"]
+
+[node name="Mage" type="CharacterBody2D"]
+script = ExtResource("1_tt6rw")
+strength = 2
+magic = 12
+speed = 8
