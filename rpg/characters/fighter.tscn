@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://c2xsv2ichj2v1"]
+[gd_scene load_steps=3 format=3 uid="uid://c2xsv2ichj2v1"]
 
 [ext_resource type="Script" uid="uid://uld3c680fbar" path="res://characters/fighter.gd" id="1_f658i"]
+[ext_resource type="Texture2D" uid="uid://cornpj1og0qo0" path="res://icon.svg" id="2_ripr3"]
 
 [node name="Fighter" type="CharacterBody2D"]
 script = ExtResource("1_f658i")
@@ -9,3 +10,6 @@ max_hp = 30
 hp = 30
 strength = 10
 speed = 6
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ripr3")

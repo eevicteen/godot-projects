@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://cp8q701hwck6"]
+
+[ext_resource type="PackedScene" uid="uid://dhx36ragkfohb" path="res://turn_queue.tscn" id="1_5g7vw"]
+[ext_resource type="Script" uid="uid://jv7l8bfmgfhu" path="res://battle_scene.gd" id="1_5joda"]
+[ext_resource type="PackedScene" uid="uid://c2xsv2ichj2v1" path="res://characters/fighter.tscn" id="2_5joda"]
+[ext_resource type="PackedScene" uid="uid://bskvj55m61lk1" path="res://characters/mage.tscn" id="3_gf131"]
+
+[node name="BattleScene" type="Node2D"]
+script = ExtResource("1_5joda")
+
+[node name="TurnQueue" parent="." instance=ExtResource("1_5g7vw")]
+
+[node name="Fighter" parent="TurnQueue" instance=ExtResource("2_5joda")]
+position = Vector2(290, 257)
+
+[node name="Mage" parent="TurnQueue" instance=ExtResource("3_gf131")]
+position = Vector2(738, 260)

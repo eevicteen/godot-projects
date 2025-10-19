@@ -1,9 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://bskvj55m61lk1"]
+[gd_scene load_steps=3 format=3 uid="uid://bskvj55m61lk1"]
 
 [ext_resource type="Script" uid="uid://cn1umyvjidolv" path="res://characters/mage.gd" id="1_tt6rw"]
+[ext_resource type="Texture2D" uid="uid://cornpj1og0qo0" path="res://icon.svg" id="2_kc5rm"]
 
 [node name="Mage" type="CharacterBody2D"]
 script = ExtResource("1_tt6rw")
+char_name = "Mage"
 strength = 2
 magic = 12
 speed = 8
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 1)
+scale = Vector2(0.53125, 0.554688)
+texture = ExtResource("2_kc5rm")
