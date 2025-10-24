@@ -5,6 +5,7 @@ extends Node2D
 var battle_active := true
 
 func _ready() -> void:
+	await get_tree().create_timer(1.0).timeout
 	print("Battle starting...")
 	turn_queue.initialize()
 	await run_battle_loop()

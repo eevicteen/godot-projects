@@ -11,6 +11,12 @@ signal turn_finished
 @export var speed: int = 10 #determines turn order. higher speed means you go first.
 
 @onready var animator: AnimationPlayer = $AnimationPlayer
+@onready var healthbar: ProgressBar = $"HP Bar"
+
+
+func _ready() -> void:
+	#set default healthbar position; gets overwritten.
+	if healthbar: healthbar.position = Vector2(0,-40)
 
 #currently, move_forward and move_back are disabled (they are animations)
 func play_turn(target, action) -> void:
