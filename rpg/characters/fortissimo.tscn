@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://c2xsv2ichj2v1"]
+
+[ext_resource type="Script" uid="uid://uld3c680fbar" path="res://characters/fortissimo.gd" id="1_f658i"]
+[ext_resource type="Texture2D" uid="uid://db4vbhkc3alwv" path="res://assets/player/player1.png" id="2_a5evf"]
+[ext_resource type="Script" uid="uid://0lch38krxdpp" path="res://characters/hp_bar.gd" id="3_a5evf"]
+
+[node name="Fighter" type="CharacterBody2D"]
+script = ExtResource("1_f658i")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1, -7)
+scale = Vector2(1.36719, 1.59375)
+texture = ExtResource("2_a5evf")
+
+[node name="HP Bar" type="ProgressBar" parent="."]
+offset_left = -17.0
+offset_top = 97.0
+offset_right = 21.0
+offset_bottom = 124.0
+script = ExtResource("3_a5evf")

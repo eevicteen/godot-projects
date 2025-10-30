@@ -1,49 +1,68 @@
 extends Node2D
-
-#Source: https://www.youtube.com/watch?v=FV4JkwI4OF4
 class_name TurnQueue
 
-var active_character: Character #store the active character
-var character_list
+signal player_turn_started(active_player)
 
-#for now, auto select the attacks. in the actual implementation, these would be loaded inside the character
-#scenes i think
-var slash_attack = preload('res://actions/slash_attack.gd')
-var fireball = preload('res://actions/fireball.gd')
+var active_character
+var character_list = []
 
+# === Initialization ===
 func initialize():
 	character_list = get_children()
-	character_list.sort_custom(sort_characters) #sort characters by speed, fastest first
-	for char in character_list:
-		move_child(char, get_child_count() - 1)
-	active_character = get_child(0)
-	
-static func sort_characters(a,b):
-	return a.speed > b.speed
+	character_list.sort_custom(sort_characters)
 
-#handles the current turn. 
-#currently sets the target and action automatically.
-#to manage the enemy to select / the action to pick, it would have to be handled in battle_scene
-#and we would have to pass on some arguments to play_turn().
-func play_turn():
-	var action
-	var target = get_child(1)
-	if active_character.char_name == 'Fighter':
-		action = slash_attack.new()
-		target = get_child(0)
-	else:
-		action = fireball.new()
+	if character_list.size() > 0:
+		active_character = character_list[0]
+
+	_next_turn()
+
+# === Sorting by speed (higher first) ===
+static func sort_characters(a, b):
+	if a.speed > b.speed:
+		return -1
+	elif a.speed < b.speed:
+		return 1
+	return 0
+
+# === Executes a turn ===
+func play_turn(action, target) -> void:
+	if active_character.hp <= 0:
+		_next_turn()
+		return
+
 	await active_character.play_turn(target, action)
-	var new_index = (active_character.get_index() + 1 ) % get_child_count()
-	active_character = get_child(new_index) #sets the active character to the next character in the queue.
+	_next_turn()
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+# === Move to next character ===
+func _next_turn():
+	var new_index = (active_character.get_index() + 1) % get_child_count()
+	active_character = get_child(new_index)
 
+	# --- PLAYER TURN LOGIC ---
+	# Check if the active character is one of the player's party
+	if active_character.char_name in ["Fortissimo", "Aria"]:
+		print("▶ Player turn started for:", active_character.char_name)
+		emit_signal("player_turn_started", active_character)
+	else:
+		_enemy_turn()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-	
-	
+func _enemy_turn() -> void:
+	var actions = [
+		preload("res://actions/power_chord.gd").new(),
+		preload("res://actions/encore.gd").new()
+	]
+
+	var enemy_action = actions[randi() % actions.size()]
+
+	# Find the weakest alive player
+	var weakest_player: Node = null
+	var lowest_hp = INF
+
+	for char in character_list:
+		if char.char_name in ["Fortissimo", "Aria"] and char.hp > 0:
+			if char.hp < lowest_hp:
+				lowest_hp = char.hp
+				weakest_player = char
+
+	if weakest_player:
+		await play_turn(enemy_action, weakest_player)

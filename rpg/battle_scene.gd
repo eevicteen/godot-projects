@@ -1,7 +1,8 @@
 extends Node2D
 
 @onready var turn_queue: TurnQueue = $TurnQueue
-
+var selected_action = null
+var selected_target = null
 var battle_active := true
 
 func _ready() -> void:
@@ -12,19 +13,27 @@ func _ready() -> void:
 
 func run_battle_loop() -> void:
 	while battle_active:
-		await turn_queue.play_turn()  # play a turn while the game is active
+		# Wait until player has selected action and target
+		if selected_action != null and selected_target != null:
+			# Play the turn asynchronously
+			await turn_queue.play_turn(selected_action, selected_target)
 
-		if is_battle_over():
-			battle_active = false
-			break
+			# Reset selections for the next turn
+			selected_action = null
+			selected_target = null
+
+			# Check for battle end
+			if is_battle_over():
+				battle_active = false
+				break
+		else:
+			# Wait a tiny bit to prevent freezing while waiting for input
+			await get_tree().process_frame
 
 	print("Battle ended!")
 	show_results()
 
 func is_battle_over() -> bool:
-	# Simple win/lose check for now. if the number of alive characters is less than or equal to 1, then there
-	# are no longer enemies to fight
-	# proper implementation would have it check the number of dead enemies and dead heroes.
 	var alive_characters = []
 	for char in turn_queue.character_list:
 		if char.hp > 0:
