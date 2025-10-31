@@ -8,7 +8,6 @@ func _ready() -> void:
 	value = player.hp
 	max_value = player.max_hp
 	
-	
 
 func _process(delta: float) -> void:
 	value = player.hp

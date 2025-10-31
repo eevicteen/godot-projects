@@ -11,10 +11,12 @@ signal turn_finished
 @export var magic: int = 5
 @export var speed: int = 10
 @export var is_enemy: bool = false
+@export var is_defending: bool = false
 
 # Optional nodes
 @onready var animator: AnimationPlayer = null
 @onready var healthbar: ProgressBar = null
+@onready var skills
 
 
 func _ready() -> void:
@@ -32,6 +34,9 @@ func _ready() -> void:
 
 # Turn execution
 func play_turn(target, action) -> void:
+	is_defending = false
+	$Sprite2D.modulate = Color.WHITE
+	
 	print(char_name, " is taking a turn...")
 	print(char_name, " is performing a ", action.action_name)
 
@@ -67,6 +72,9 @@ func move_back() -> void:
 
 # Damage handling
 func take_damage(amount: int) -> void:
+	if is_defending: 
+		amount = amount/2
+		print(char_name," is defending! Damage is halved.")
 	amount = max(0, amount)
 	hp = clamp(hp - amount, 0, max_hp)
 	print(char_name, " takes ", amount, " damage. HP:", hp)
@@ -74,6 +82,12 @@ func take_damage(amount: int) -> void:
 		healthbar.value = hp
 	if hp <= 0:
 		die()
+
+func defend():
+	is_defending = true
+	$Sprite2D.modulate = Color.SKY_BLUE
+
+	
 
 func die() -> void:
 	print(char_name, " has fallen!")

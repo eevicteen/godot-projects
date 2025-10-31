@@ -6,7 +6,7 @@ class_name VocalStrike
 func execute(source, target):
 	var modified_damage = source.magic + base_damage
 	target.take_damage(modified_damage)
-	print(source.char_name, " uses ", action_name, " on ", target.char_name, " for ", modified_damage, " damage!")
+
 
 func _init():
-	initialize('VocalStrike', 'A sharp vocal attack dealing damage to one enemy.')
+	initialize('Vocal Strike', 'A sharp vocal attack dealing damage to one enemy.')

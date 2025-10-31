@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cp8q701hwck6"]
+[gd_scene load_steps=19 format=3 uid="uid://cp8q701hwck6"]
 
 [ext_resource type="PackedScene" uid="uid://dhx36ragkfohb" path="res://turn_queue.tscn" id="1_5g7vw"]
 [ext_resource type="Script" uid="uid://jv7l8bfmgfhu" path="res://battle_scene.gd" id="1_5joda"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bskvj55m61lk1" path="res://characters/rocky.tscn" id="3_gf131"]
 [ext_resource type="Texture2D" uid="uid://htojpm2trqvc" path="res://assets/stage/curtain.png" id="5_sl17i"]
 [ext_resource type="PackedScene" uid="uid://br2lmvbcnk0aw" path="res://characters/aria.tscn" id="5_x76d4"]
+[ext_resource type="PackedScene" uid="uid://djw12g2j6iwfa" path="res://characters/Poppy.tscn" id="6_715r7"]
 [ext_resource type="Texture2D" uid="uid://dyjdcfr3bfynt" path="res://assets/stage/floor.png" id="6_x5h4l"]
 [ext_resource type="Texture2D" uid="uid://tnbri82insw2" path="res://assets/stage/stand.png" id="7_x5h4l"]
 [ext_resource type="Texture2D" uid="uid://d381uiub60l0j" path="res://assets/stage/curtain2.png" id="8_vtmj2"]
@@ -359,13 +360,17 @@ script = ExtResource("1_5joda")
 
 [node name="TurnQueue" parent="." instance=ExtResource("1_5g7vw")]
 
+[node name="Aria" parent="TurnQueue" instance=ExtResource("5_x76d4")]
+position = Vector2(400, 350)
+speed = 8
+
 [node name="Fortissimo" parent="TurnQueue" instance=ExtResource("2_5joda")]
 position = Vector2(243, 349)
 
 [node name="Rocky" parent="TurnQueue" instance=ExtResource("3_gf131")]
 position = Vector2(756, 436)
 
-[node name="Aria" parent="TurnQueue" instance=ExtResource("5_x76d4")]
+[node name="Poppy" parent="TurnQueue" instance=ExtResource("6_715r7")]
 position = Vector2(400, 350)
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -396,39 +401,18 @@ text = "Attack"
 layout_mode = 2
 text = "Heal"
 
+[node name="Defend" type="Button" parent="BattleUI/MainPanel"]
+layout_mode = 2
+text = "Defend"
+
 [node name="AttackPanel" type="VBoxContainer" parent="BattleUI"]
 offset_left = 11.0
 offset_top = 360.0
 offset_right = 149.0
 offset_bottom = 506.0
 
-[node name="VocalStrike" type="Button" parent="BattleUI/AttackPanel"]
-z_index = 1
-layout_mode = 2
-text = "Vocal Strike
-"
-
-[node name="HighNoteBlast" type="Button" parent="BattleUI/AttackPanel"]
-layout_mode = 2
-text = "High Note Blast"
-
-[node name="HarmonicWave" type="Button" parent="BattleUI/AttackPanel"]
-z_index = 1
-layout_mode = 2
-text = "Harmonic Wave"
-
-[node name="Crescendo" type="Button" parent="BattleUI/AttackPanel"]
-z_index = 1
-layout_mode = 2
-text = "HealingMelody
-"
-
-[node name="TargetPanel" type="VBoxContainer" parent="BattleUI"]
+[node name="TargetPanel" type="Control" parent="BattleUI"]
+layout_mode = 3
+anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-
-[node name="PowerChord" type="Button" parent="BattleUI/TargetPanel"]
-layout_mode = 2
-
-[node name="Encore" type="Button" parent="BattleUI/TargetPanel"]
-layout_mode = 2

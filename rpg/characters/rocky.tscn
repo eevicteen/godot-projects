@@ -4,8 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://cornpj1og0qo0" path="res://icon.svg" id="2_kc5rm"]
 [ext_resource type="Script" uid="uid://0lch38krxdpp" path="res://characters/hp_bar.gd" id="3_8vdtn"]
 
-[node name="Mage" type="CharacterBody2D"]
+[node name="Rocky" type="CharacterBody2D"]
 script = ExtResource("1_tt6rw")
+speed = 9
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, 1)

@@ -1,11 +1,15 @@
 extends "res://characters/character.gd"
 
-class_name Rocky
+class_name Poppy
 
 func _ready() -> void:
 	if healthbar:
 		healthbar.rect_position = Vector2(0, 40)
-	char_name = "Rocky"
+	hp = 70
+	max_hp = 70
+	strength = 10
+	speed = 2
+	char_name = "Poppy"
 	skills=[preload("res://actions/power_chord.gd").new(),
 	preload("res://actions/encore.gd").new(),
 	preload("res://actions/defend.gd").new()]

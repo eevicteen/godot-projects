@@ -12,6 +12,3 @@ func execute(source, target):
 
 	# Apply damage
 	target.take_damage(modified_damage)
-
-	# Print info
-	print("%s uses %s on %s for %d damage!" % [source.char_name, action_name, target.char_name, modified_damage])

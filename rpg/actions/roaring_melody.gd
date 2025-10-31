@@ -1,10 +1,10 @@
 extends "res://actions/action.gd"
-class_name HighNoteBlast
+class_name HealingMelody
 
-@export var base_damage: int = 8
+@export var base_damage: int = 10
 
 func _init():
-	initialize("High Note", "A powerful high note that deals extra magic damage.")
+	initialize("Roaring Melody", "A melodic attack that damages an enemy with sonic waves.")
 
 func execute(source, target):
 	var modified_damage = source.magic + base_damage

@@ -4,7 +4,7 @@ class_name Cresendo
 @export var buff_amount: int = 5
 
 func _init():
-	initialize("Cresendo", "A gradually increasing tune that boosts an ally's strength temporarily.")
+	initialize("Cresendo", "A gradually increasing tune that boosts an ally's strength temporarily.",true)
 
 func execute(source, target):
 	target.strength += buff_amount

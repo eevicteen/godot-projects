@@ -5,24 +5,26 @@ signal player_turn_started(active_player)
 
 var active_character
 var character_list = []
+var char_index = 0
 
 # === Initialization ===
 func initialize():
 	character_list = get_children()
-	character_list.sort_custom(sort_characters)
+	character_list.sort_custom(sort_descending)
 
-	if character_list.size() > 0:
-		active_character = character_list[0]
-
-	_next_turn()
+	active_character = character_list[0]
+		
+	if active_character.char_name in ["Fortissimo", "Aria"]:
+		print("▶ Player turn started for:", active_character.char_name)
+		emit_signal("player_turn_started", active_character)
+	else:
+		_enemy_turn()
+	
 
 # === Sorting by speed (higher first) ===
-static func sort_characters(a, b):
-	if a.speed > b.speed:
-		return -1
-	elif a.speed < b.speed:
-		return 1
-	return 0
+func sort_descending(a, b):
+	return a.speed > b.speed
+
 
 # === Executes a turn ===
 func play_turn(action, target) -> void:
@@ -35,8 +37,9 @@ func play_turn(action, target) -> void:
 
 # === Move to next character ===
 func _next_turn():
-	var new_index = (active_character.get_index() + 1) % get_child_count()
-	active_character = get_child(new_index)
+
+	char_index = (char_index+ 1) % get_child_count()	
+	active_character = character_list[char_index]
 
 	# --- PLAYER TURN LOGIC ---
 	# Check if the active character is one of the player's party
@@ -47,10 +50,7 @@ func _next_turn():
 		_enemy_turn()
 
 func _enemy_turn() -> void:
-	var actions = [
-		preload("res://actions/power_chord.gd").new(),
-		preload("res://actions/encore.gd").new()
-	]
+	var actions = active_character.skills
 
 	var enemy_action = actions[randi() % actions.size()]
 
