@@ -1,14 +1,20 @@
 extends CanvasLayer
 
 @onready var main_panel: Control = $MainPanel
-@onready var attack_panel: Control = $AttackPanel
+@onready var skill_panel: Control = $SkillPanel
 @onready var target_panel: Control = $TargetPanel
 @onready var turn_queue: Node = $"../TurnQueue"
 
 # Main action buttons
 @onready var attack_button: Button = $MainPanel/Attack
+@onready var skill_button: Button = $MainPanel/Skill
 @onready var heal_button: Button = $MainPanel/Heal
 @onready var defend_button: Button = $MainPanel/Defend
+
+
+@onready var defend_action = preload("res://actions/defend.gd").new()
+@onready var heal_action = preload("res://actions/heal.gd").new()
+@onready var attack_action = preload("res://actions/attack.gd").new()
 
 var selected_action = null
 var selected_target = null
@@ -20,34 +26,34 @@ func _ready():
 	randomize()
 
 	main_panel.visible = false
-	attack_panel.visible = false
+	skill_panel.visible = false
 	target_panel.visible = false
 
 	# Connect buttons
 	attack_button.pressed.connect(_on_attack_pressed)
+	skill_button.pressed.connect(_on_skill_pressed)
 	heal_button.pressed.connect(_on_heal_pressed)
 	defend_button.pressed.connect(_on_defend_pressed)
 
-	if turn_queue.has_signal("player_turn_started"):
-		turn_queue.connect("player_turn_started", Callable(self, "_on_player_turn"))
+	turn_queue.connect("player_turn_started", Callable(self, "_on_player_turn"))
 
 # === When it's a player's turn ===
 func _on_player_turn(player):
 	current_player = player
 	main_panel.visible = true
-	attack_panel.visible = false
+	skill_panel.visible = false
 	target_panel.visible = false
 
 	attack_button.visible = true
 	heal_button.visible = true  
 
 
-func _on_attack_pressed():
+func _on_skill_pressed():
 	main_panel.visible = false
-	attack_panel.visible = true
+	skill_panel.visible = true
 	
 	#Clear the attack panel
-	for child in attack_panel.get_children():
+	for child in skill_panel.get_children():
 		child.queue_free()
 		
 	#Construct skill buttons dynamically
@@ -58,57 +64,36 @@ func _on_attack_pressed():
 			func():
 				_on_skill_selected(skill)
 		)
-		attack_panel.add_child(btn)
+		skill_panel.add_child(btn)
 
+func _on_attack_pressed():
+	main_panel.visible = false
+	selected_action = attack_action
+	_show_target_panel()
+	
 func _on_heal_pressed():
 	# Hide panels since we’re acting immediately
 	main_panel.visible = false
-	attack_panel.visible = false
+	skill_panel.visible = false
 	target_panel.visible = false
 
-	if current_player == null:
-		print("No current player set.")
-		return
-
-	# Simple self-heal
-	var heal_amount := 5
-	current_player.hp = min(current_player.max_hp, current_player.hp + heal_amount)
-
-	# Update HP bar if available
-	if current_player.healthbar:
-		current_player.healthbar.value = current_player.hp
-
-	print("%s heals themself for %d HP!" %
-		[current_player.char_name, heal_amount])
-
-	# Optional short delay for pacing
-	await get_tree().create_timer(0.6).timeout
-
-	# Move to the next character’s turn
-	turn_queue._next_turn()
+	turn_queue.player_turn(heal_action,current_player)
 
 func _on_defend_pressed():
 	# Hide panels since we’re acting immediately
 	main_panel.visible = false
-	attack_panel.visible = false
+	skill_panel.visible = false
 	target_panel.visible = false
 	
-	current_player.defend()
-	print("%s defends!" %
-		[current_player.char_name])
-		
-	# Optional short delay for pacing
-	await get_tree().create_timer(0.6).timeout
-	
-	turn_queue._next_turn()
+	turn_queue.player_turn(defend_action,current_player)
 
 func _on_skill_selected(skill):
 	selected_action = skill
-	attack_panel.visible = false
-	_show_target_panel(false)
+	skill_panel.visible = false
+	_show_target_panel()
 
 # === Target selection ===
-func _show_target_panel(is_heal: bool):
+func _show_target_panel():
 	target_panel.visible = true
 
 	for child in target_panel.get_children():
@@ -144,6 +129,6 @@ func _on_target_selected(target):
 	selected_target = target
 
 	if selected_action and selected_target:
-		await turn_queue.play_turn(selected_action, selected_target)
+		turn_queue.player_turn(selected_action, selected_target)
 		selected_action = null
 		selected_target = null

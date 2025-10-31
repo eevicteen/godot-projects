@@ -7,47 +7,55 @@ var active_character
 var character_list = []
 var char_index = 0
 
+var planned_actions = []
+
 # === Initialization ===
 func initialize():
 	character_list = get_children()
 	character_list.sort_custom(sort_descending)
 
+	_new_turn()
+
+func _new_turn():
 	active_character = character_list[0]
+	planned_actions = []
 		
 	if active_character.char_name in ["Fortissimo", "Aria"]:
 		print("▶ Player turn started for:", active_character.char_name)
 		emit_signal("player_turn_started", active_character)
 	else:
 		_enemy_turn()
-	
 
 # === Sorting by speed (higher first) ===
 func sort_descending(a, b):
 	return a.speed > b.speed
 
-
 # === Executes a turn ===
-func play_turn(action, target) -> void:
-	if active_character.hp <= 0:
-		_next_turn()
-		return
+func play_turn() -> void:
+	for act in planned_actions:
+		if act[0].hp <= 0:
+			return
+		await act[0].play_turn(act[2],act[1])
+	
 
-	await active_character.play_turn(target, action)
-	_next_turn()
+	_new_turn()
 
 # === Move to next character ===
 func _next_turn():
+	char_index += 1
+	if char_index == get_child_count():
+		play_turn()
+	else:	
+		char_index = char_index % get_child_count()	
+		active_character = character_list[char_index]
 
-	char_index = (char_index+ 1) % get_child_count()	
-	active_character = character_list[char_index]
-
-	# --- PLAYER TURN LOGIC ---
-	# Check if the active character is one of the player's party
-	if active_character.char_name in ["Fortissimo", "Aria"]:
-		print("▶ Player turn started for:", active_character.char_name)
-		emit_signal("player_turn_started", active_character)
-	else:
-		_enemy_turn()
+		# --- PLAYER TURN LOGIC ---
+		# Check if the active character is one of the player's party
+		if active_character.char_name in ["Fortissimo", "Aria"]:
+			print("▶ Player turn started for:", active_character.char_name)
+			emit_signal("player_turn_started", active_character)
+		else:
+			_enemy_turn()
 
 func _enemy_turn() -> void:
 	var actions = active_character.skills
@@ -64,5 +72,9 @@ func _enemy_turn() -> void:
 				lowest_hp = char.hp
 				weakest_player = char
 
-	if weakest_player:
-		await play_turn(enemy_action, weakest_player)
+	planned_actions.append([active_character,enemy_action, weakest_player])
+	_next_turn()
+		
+func player_turn(action,target):
+	planned_actions.append([active_character, action, target])
+	_next_turn()

@@ -16,11 +16,7 @@ func run_battle_loop() -> void:
 		# Wait until player has selected action and target
 		if selected_action != null and selected_target != null:
 			# Play the turn asynchronously
-			await turn_queue.play_turn(selected_action, selected_target)
-
-			# Reset selections for the next turn
-			selected_action = null
-			selected_target = null
+			await turn_queue.play_turn()
 
 			# Check for battle end
 			if is_battle_over():
