@@ -361,17 +361,21 @@ script = ExtResource("1_5joda")
 [node name="TurnQueue" parent="." instance=ExtResource("1_5g7vw")]
 
 [node name="Aria" parent="TurnQueue" instance=ExtResource("5_x76d4")]
-position = Vector2(400, 350)
+position = Vector2(365, 331)
+char_name = "Aria"
 speed = 8
 
 [node name="Fortissimo" parent="TurnQueue" instance=ExtResource("2_5joda")]
-position = Vector2(243, 349)
+position = Vector2(228, 397)
+char_name = "Fortissimo"
 
 [node name="Rocky" parent="TurnQueue" instance=ExtResource("3_gf131")]
-position = Vector2(740, 461)
+position = Vector2(763, 408)
+char_name = "Rocky"
 
 [node name="Poppy" parent="TurnQueue" instance=ExtResource("6_715r7")]
-position = Vector2(871, 393)
+position = Vector2(922, 362)
+char_name = "Poppy"
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_m1vkf")

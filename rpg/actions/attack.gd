@@ -1,5 +1,5 @@
 extends "res://actions/action.gd"
-class_name Attacj
+class_name Attack
 
 @export var base_damage: int = 5
 

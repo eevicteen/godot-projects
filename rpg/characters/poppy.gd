@@ -3,6 +3,7 @@ extends "res://characters/character.gd"
 class_name Poppy
 
 func _ready() -> void:
+	is_enemy = true
 	if healthbar:
 		healthbar.rect_position = Vector2(0, 40)
 	hp = 70

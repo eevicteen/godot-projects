@@ -18,6 +18,10 @@ signal turn_finished
 @onready var healthbar: ProgressBar = null
 @onready var skills
 
+var charge_countdown = 0
+var charged_action = null
+var charged_target = null
+
 
 func _ready() -> void:
 	# Optional AnimationPlayer
@@ -38,6 +42,21 @@ func play_turn(target, action) -> void:
 	$Sprite2D.modulate = Color.WHITE
 	
 	print(char_name, " is taking a turn...")
+	if action.is_charge:
+		if charge_countdown < action.charge_time:
+			print(char_name, "  is charging up...")
+			print(action.charge_time - charge_countdown, " turns left to charge")
+			$Sprite2D.modulate = Color.YELLOW
+			charge_countdown += 1
+			charged_action = action
+			charged_target = target
+		else:
+			action.execute(self, target)
+			charged_action = null
+			charge_countdown = 0
+			charged_target = null
+		return
+	
 	print(char_name, " is performing a ", action.action_name)
 
 	# Move forward animation (optional)
@@ -86,7 +105,6 @@ func take_damage(amount: int) -> void:
 func defend():
 	is_defending = true
 	$Sprite2D.modulate = Color.SKY_BLUE
-
 	
 
 func die() -> void:

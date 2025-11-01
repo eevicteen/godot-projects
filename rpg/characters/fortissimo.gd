@@ -9,6 +9,7 @@ func _ready():
 	strength = 8
 	speed = 10
 	skills = [ preload("res://actions/vocal_strike.gd").new(),
-	preload("res://actions/high_note.gd").new()]
+	preload("res://actions/high_note.gd").new(),
+	preload("res://actions/concerto.gd").new()]
 	print(char_name, " ready for battle!")
 	

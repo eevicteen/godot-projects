@@ -1,45 +1,40 @@
 extends Node2D
 
 @onready var turn_queue: TurnQueue = $TurnQueue
-var selected_action = null
-var selected_target = null
 var battle_active := true
+var alive_heroes = []
+var alive_enemies = []
 
 func _ready() -> void:
 	await get_tree().create_timer(1.0).timeout
 	print("Battle starting...")
+	
 	turn_queue.initialize()
-	await run_battle_loop()
+	turn_queue.connect("turn_finished", Callable(self, "_on_turn_finished"))
+	
+	print("Battle in progress...")
 
-func run_battle_loop() -> void:
-	while battle_active:
-		# Wait until player has selected action and target
-		if selected_action != null and selected_target != null:
-			# Play the turn asynchronously
-			await turn_queue.play_turn()
-
-			# Check for battle end
-			if is_battle_over():
-				battle_active = false
-				break
-		else:
-			# Wait a tiny bit to prevent freezing while waiting for input
-			await get_tree().process_frame
-
-	print("Battle ended!")
-	show_results()
+func _on_turn_finished():
+	if is_battle_over():
+		battle_active = false
+		print("Battle ended!")
+		turn_queue.battle_active = false
+		show_results()
+	else:
+		print("Continuing battle...")
 
 func is_battle_over() -> bool:
-	var alive_characters = []
+	alive_heroes.clear()
+	alive_enemies.clear()
 	for char in turn_queue.character_list:
-		if char.hp > 0:
-			alive_characters.append(char)
-
-	if alive_characters.size() <= 1:
-		return true
-	return false
+		if char.hp > 0 and char.is_enemy:
+			alive_enemies.append(char)
+		elif char.hp > 0 and !char.is_enemy:
+			alive_heroes.append(char)
+	return alive_heroes.is_empty() or alive_enemies.is_empty()
 
 func show_results() -> void:
-	print("Battle Results:")
-	for char in turn_queue.character_list:
-		print(char.char_name, "HP:", char.hp)
+	if alive_heroes.is_empty():
+		print("The enemies won!")
+	else:
+		print("The heroes won!")
