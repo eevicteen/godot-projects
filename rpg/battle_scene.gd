@@ -19,6 +19,7 @@ func _ready() -> void:
 	for character in turn_queue.get_children():
 		if character.has_signal("text_emitted"):
 			character.text_emitted.connect(show_battle_text)
+		turn_queue.text_emitted.connect(show_battle_text)
 
 	print("Battle in progress...")
 
@@ -44,9 +45,9 @@ func is_battle_over() -> bool:
 
 func show_results() -> void:
 	if alive_heroes.is_empty():
-		print("The enemies won!")
+		show_battle_text("The enemies won!")
 	else:
-		print("The heroes won!")
+		show_battle_text("The heroes won!")
 		
 func show_battle_text(text: String):
 	battle_text_label.text = "▶  " + text + "\n"

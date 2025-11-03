@@ -4,7 +4,7 @@ class_name TurnQueue
 
 signal player_turn_started(active_player)
 signal turn_finished
-
+signal text_emitted(text:String)
 
 var active_character
 var character_list = []
@@ -47,6 +47,7 @@ func sort_descending(a, b):
 
 # === Executes a turn ===
 func play_turn() -> void:
+	log_message("")
 	for act in planned_actions:
 		var source = act[0]
 		var action = act[1]
@@ -55,12 +56,13 @@ func play_turn() -> void:
 		if source.hp <= 0:
 			continue
 			
-		if target.hp <= 0 or target == null:
-			print(source.char_name, " tried to perform ", action.action_name, " on ", target.char_name, "! But it failed..")
+		if (target.hp <= 0 or target == null) and action.action_name not in ['Defend','Heal']:
+			var message = "%s tried to perform %s on %s! But it failed.." % [source.char_name, action.action_name, target.char_name]
+			emit_signal("text_emitted", message)
+			await get_tree().create_timer(1).timeout
 			continue
 			
 		await source.play_turn(target,action)
-	
 	
 	turn_count += 1
 	emit_signal('turn_finished')
@@ -110,6 +112,7 @@ func _choose_next_turn():
 		log_message("Choosing action for: " + active_character.char_name)
 		emit_signal("player_turn_started", active_character)
 	else:
+		
 		_enemy_turn()
 
 

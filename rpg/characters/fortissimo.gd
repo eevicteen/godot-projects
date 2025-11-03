@@ -11,9 +11,6 @@ var skill_animations = {
 func _ready():
 	char_name = "Fortissimo"
 	is_enemy = false
-	hp = 100
-	strength = 8
-	speed = 10
 	skills = [ preload("res://actions/vocal_strike.gd").new(),
 	preload("res://actions/high_note.gd").new(),
 	preload("res://actions/concerto.gd").new()]

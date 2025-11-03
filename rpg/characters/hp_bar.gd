@@ -1,17 +1,23 @@
 extends ProgressBar
 
 @onready var player = $".."
-@onready var sprite: Sprite2D = player.get_node_or_null("Sprite2D")
+@onready var sprite: Node2D = null
 
 func _ready() -> void:
-	size = Vector2(50, 8)  # Default size 
+	sprite = player.find_child("AnimatedSprite2D", true, false)
+
+	size = Vector2(50, 8)
 	value = player.hp
 	max_value = player.max_hp
-	
+	_update_position()
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	value = player.hp
-	if sprite and sprite.texture:
-		size.x = sprite.texture.get_width() * sprite.scale.x
-		var y_offset = sprite.texture.get_height() * sprite.scale.y / 2 + 10
-		position = Vector2(-size.x/2, y_offset)
+	_update_position()
+
+func _update_position() -> void:
+	if sprite:
+
+		position = Vector2(-size.x / 2, sprite.sprite_frames.get_frame_texture(sprite.animation, 0).get_height() * sprite.scale.y / 2 + 10)
+		
+		

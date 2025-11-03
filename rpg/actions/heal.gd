@@ -8,6 +8,5 @@ func _init():
 	description = "Restore some HP"
 	
 func execute(source, target):
-	source.hp = min(source.hp + heal_amount, source.max_hp)
-	if source.healthbar:
-		source.healthbar.value = source.hp
+	await source.heal(heal_amount)
+	

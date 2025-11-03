@@ -11,7 +11,6 @@ extends CanvasLayer
 @onready var heal_button: Button = $MainPanel/Heal
 @onready var defend_button: Button = $MainPanel/Defend
 
-
 @onready var defend_action = preload("res://actions/defend.gd").new()
 @onready var heal_action = preload("res://actions/heal.gd").new()
 @onready var attack_action = preload("res://actions/attack.gd").new()
@@ -46,7 +45,6 @@ func _on_player_turn(player):
 
 	attack_button.visible = true
 	heal_button.visible = true  
-
 
 func _on_skill_pressed():
 	main_panel.visible = false
@@ -139,20 +137,12 @@ func _add_target_button(char):
 		else:
 			push_warning("AnimatedSprite2D for %s has no valid animation!" % char.name)
 
-	# --- Handle Sprite2D ---
-	elif sprite is Sprite2D:
-		if sprite.texture:
-			sprite_height = sprite.texture.get_size().y * sprite.scale.y
-		else:
-			push_warning("Sprite2D for %s has no texture!" % char.name)
-
 	# Compute button position
 	var btn_length = btn.text.length() * 10
 	var char_pos = char.global_position
 	btn.position = char_pos - Vector2(btn_length / 2, sprite_height / 2 + 20)
 	
 	target_panel.add_child(btn)
-
 	
 
 func _on_target_selected(target):
@@ -163,3 +153,4 @@ func _on_target_selected(target):
 		turn_queue.player_turn(selected_action, selected_target)
 		selected_action = null
 		selected_target = null
+		
