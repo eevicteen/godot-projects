@@ -1,5 +1,6 @@
 extends Node2D
 class_name TurnQueue
+@export var turn_log_label: RichTextLabel
 
 signal player_turn_started(active_player)
 signal turn_finished
@@ -35,7 +36,7 @@ func _new_turn():
 	
 	if char_index >= len(character_list):
 		char_index = 0
-	active_character = character_list[0]
+	active_character = character_list[char_index]
 	planned_actions = []
 	print("Turn ", turn_count, " ------------------------")
 	_choose_next_turn()
@@ -104,9 +105,16 @@ func _choose_next_turn():
 		planned_actions.append([active_character,active_character.charged_action,active_character.charged_target])
 		_next_turn()
 		return
-	
+
 	if active_character.char_name in ["Fortissimo", "Aria"]:
-		print("▶ Player turn started for:", active_character.char_name)
+		log_message("Choosing action for: " + active_character.char_name)
 		emit_signal("player_turn_started", active_character)
 	else:
 		_enemy_turn()
+
+
+func log_message(text: String):
+	if turn_log_label:
+		turn_log_label.text = text
+	else:
+		print(text)

@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bskvj55m61lk1"]
+[gd_scene load_steps=5 format=3 uid="uid://bskvj55m61lk1"]
 
 [ext_resource type="Script" uid="uid://cn1umyvjidolv" path="res://characters/rocky.gd" id="1_tt6rw"]
 [ext_resource type="Texture2D" uid="uid://bilb3cnbtpicl" path="res://assets/enemy/rocky.png" id="2_5p6v6"]
 [ext_resource type="Script" uid="uid://0lch38krxdpp" path="res://characters/hp_bar.gd" id="3_8vdtn"]
+[ext_resource type="FontFile" uid="uid://cwy0807mf3rd8" path="res://assets/font/pokemon_pixel_font.ttf" id="3_txr1g"]
 
 [node name="Rocky" type="CharacterBody2D"]
 script = ExtResource("1_tt6rw")
@@ -17,4 +18,6 @@ offset_left = -23.0
 offset_top = -71.0
 offset_right = 19.0
 offset_bottom = -44.0
+theme_override_fonts/font = ExtResource("3_txr1g")
+theme_override_font_sizes/font_size = 30
 script = ExtResource("3_8vdtn")

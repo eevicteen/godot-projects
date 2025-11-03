@@ -1,18 +1,27 @@
 extends Node2D
 
 @onready var turn_queue: TurnQueue = $TurnQueue
+@onready var battle_text_label = $BattleText
 var battle_active := true
 var alive_heroes = []
 var alive_enemies = []
 
 func _ready() -> void:
-	await get_tree().create_timer(1.0).timeout
 	print("Battle starting...")
-	
 	turn_queue.initialize()
 	turn_queue.connect("turn_finished", Callable(self, "_on_turn_finished"))
-	
+
+	# wait two frames to ensure Character._ready() has run
+	await get_tree().process_frame
+	await get_tree().process_frame
+
+	var characters = get_tree().get_nodes_in_group("characters")
+	for character in turn_queue.get_children():
+		if character.has_signal("text_emitted"):
+			character.text_emitted.connect(show_battle_text)
+
 	print("Battle in progress...")
+
 
 func _on_turn_finished():
 	if is_battle_over():
@@ -38,3 +47,7 @@ func show_results() -> void:
 		print("The enemies won!")
 	else:
 		print("The heroes won!")
+		
+func show_battle_text(text: String):
+	battle_text_label.text = "▶  " + text + "\n"
+	await get_tree().create_timer(2.0).timeout

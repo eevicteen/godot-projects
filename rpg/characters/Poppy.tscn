@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://djw12g2j6iwfa"]
+[gd_scene load_steps=5 format=3 uid="uid://djw12g2j6iwfa"]
 
-[ext_resource type="Script" uid="uid://cbql1jrieaoti" path="res://characters/poppy.gd" id="1_c0q6a"]
+[ext_resource type="Script" path="res://characters/poppy.gd" id="1_c0q6a"]
 [ext_resource type="Texture2D" uid="uid://gngewvunuljl" path="res://assets/enemy/poppy.png" id="2_c0q6a"]
 [ext_resource type="Script" uid="uid://0lch38krxdpp" path="res://characters/hp_bar.gd" id="3_2ship"]
+[ext_resource type="FontFile" uid="uid://cwy0807mf3rd8" path="res://assets/font/pokemon_pixel_font.ttf" id="3_xhipl"]
 
 [node name="Poppy" type="CharacterBody2D"]
 script = ExtResource("1_c0q6a")
@@ -20,4 +21,6 @@ offset_left = -23.0
 offset_top = -71.0
 offset_right = 19.0
 offset_bottom = -44.0
+theme_override_fonts/font = ExtResource("3_xhipl")
+theme_override_font_sizes/font_size = 30
 script = ExtResource("3_2ship")

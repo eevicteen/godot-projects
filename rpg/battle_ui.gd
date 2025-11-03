@@ -98,7 +98,7 @@ func _show_target_panel():
 
 	for child in target_panel.get_children():
 		child.queue_free()
-
+		
 	for char in turn_queue.character_list:
 		if char.hp > 0:
 			# Healing = target allies; Attacking = target enemies
@@ -113,15 +113,46 @@ func _add_target_button(char):
 	btn.pressed.connect(func():
 		_on_target_selected(char)
 	)
-	
-	#place the target button above the character sprite
+
 	await get_tree().process_frame
-	var sprite = char.get_node("Sprite2D")
-	var sprite_height = sprite.texture.get_size().y * sprite.scale.y
-	var btn_length = len(btn.text)*10
-	btn.position = char.global_position - Vector2(btn_length/2, sprite_height / 2 + 20)
+
+	var sprite: Node = null
+	if char.has_node("AnimatedSprite2D"):
+		sprite = char.get_node("AnimatedSprite2D")
+	elif char.has_node("Sprite2D"):
+		sprite = char.get_node("Sprite2D")
+	else:
+		push_warning("Character %s has no sprite node!" % char.name)
+		return
+
+	var sprite_height := 0.0
+
+	# --- Handle AnimatedSprite2D ---
+	if sprite is AnimatedSprite2D:
+		var frames = sprite.sprite_frames
+		if frames and frames.has_animation(sprite.animation):
+			var frame_texture = frames.get_frame_texture(sprite.animation, 0)
+			if frame_texture:
+				sprite_height = frame_texture.get_height() * sprite.scale.y
+			else:
+				push_warning("AnimatedSprite2D for %s has no frame texture!" % char.name)
+		else:
+			push_warning("AnimatedSprite2D for %s has no valid animation!" % char.name)
+
+	# --- Handle Sprite2D ---
+	elif sprite is Sprite2D:
+		if sprite.texture:
+			sprite_height = sprite.texture.get_size().y * sprite.scale.y
+		else:
+			push_warning("Sprite2D for %s has no texture!" % char.name)
+
+	# Compute button position
+	var btn_length = btn.text.length() * 10
+	var char_pos = char.global_position
+	btn.position = char_pos - Vector2(btn_length / 2, sprite_height / 2 + 20)
 	
 	target_panel.add_child(btn)
+
 	
 
 func _on_target_selected(target):

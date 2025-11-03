@@ -2,6 +2,7 @@ extends Node2D
 class_name Character
 
 signal turn_finished
+signal text_emitted(text: String)
 
 # Character stats
 @export var char_name: String = "Unnamed"
@@ -17,6 +18,7 @@ signal turn_finished
 @onready var animator: AnimationPlayer = null
 @onready var healthbar: ProgressBar = null
 @onready var skills
+@onready var sprite: AnimatedSprite2D = null
 
 var charge_countdown = 0
 var charged_action = null
@@ -27,6 +29,9 @@ func _ready() -> void:
 	# Optional AnimationPlayer
 	if has_node("AnimationPlayer"):
 		animator = $AnimationPlayer
+	
+	if has_node("AnimatedSprite2D"):
+		sprite = $AnimatedSprite2D
 
 	# Optional HealthBar
 	if has_node("HP Bar"):
@@ -34,19 +39,21 @@ func _ready() -> void:
 		healthbar.rect_position = Vector2(0, -40)
 		healthbar.max_value = max_hp
 		healthbar.value = hp
+	add_to_group("characters")
 
 
 # Turn execution
 func play_turn(target, action) -> void:
 	is_defending = false
-	$Sprite2D.modulate = Color.WHITE
+
+	emit_signal("text_emitted", char_name + " is taking a turn...")
+	if sprite:
+		sprite.play(action.action_name)  
 	
-	print(char_name, " is taking a turn...")
 	if action.is_charge:
 		if charge_countdown < action.charge_time:
-			print(char_name, "  is charging up...")
-			print(action.charge_time - charge_countdown, " turns left to charge")
-			$Sprite2D.modulate = Color.YELLOW
+			emit_signal("text_emitted", char_name + " is charging up...")
+			emit_signal("text_emitted", str(action.charge_time - charge_countdown) + " turns left to charge")
 			charge_countdown += 1
 			charged_action = action
 			charged_target = target
@@ -56,26 +63,18 @@ func play_turn(target, action) -> void:
 			charge_countdown = 0
 			charged_target = null
 		return
-	
-	print(char_name, " is performing a ", action.action_name)
 
-	# Move forward animation (optional)
+	emit_signal("text_emitted", char_name + " is performing " + action.action_name)
+
 	if animator:
 		await move_forward()
 
-	# Perform action
 	action.execute(self, target)
 
-	# Small delay to simulate attack
 	await get_tree().create_timer(1.0).timeout
-
-	# Move back animation (optional)
-	if animator:
-		await move_back()
-
-	print(char_name, " finished turn.")
+	emit_signal("text_emitted", char_name + " finished turn.")
 	emit_signal("turn_finished")
-
+	
 
 # Optional movement animations
 func move_forward() -> void:
@@ -92,11 +91,11 @@ func move_back() -> void:
 # Damage handling
 func take_damage(amount: int) -> void:
 	if is_defending: 
-		amount = amount/2
-		print(char_name," is defending! Damage is halved.")
+		amount = amount / 2
+		emit_signal("text_emitted", char_name + " is defending! Damage is halved.")
 	amount = max(0, amount)
 	hp = clamp(hp - amount, 0, max_hp)
-	print(char_name, " takes ", amount, " damage. HP:", hp)
+	emit_signal("text_emitted", char_name + " takes " + str(amount) + " damage. HP: " + str(hp))
 	if healthbar:
 		healthbar.value = hp
 	if hp <= 0:
@@ -108,4 +107,5 @@ func defend():
 	
 
 func die() -> void:
-	print(char_name, " has fallen!")
+	emit_signal("text_emitted", char_name + " has fallen!")
+	

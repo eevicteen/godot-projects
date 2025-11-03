@@ -2,6 +2,12 @@
 extends "res://characters/character.gd"
 class_name Fortissimo
 
+var skill_animations = {
+	"Vocal Strike": "attack",
+	"High Note": "high_note",
+	"Concerto": "concerto"
+}
+
 func _ready():
 	char_name = "Fortissimo"
 	is_enemy = false

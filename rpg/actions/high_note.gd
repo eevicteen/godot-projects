@@ -7,5 +7,16 @@ func _init():
 	initialize("High Note", "A powerful high note that deals extra magic damage.")
 
 func execute(source, target):
+	if source.has_node("AnimatedSprite2D"):
+		var sprite = source.get_node("AnimatedSprite2D")
+		if sprite.sprite_frames.has_animation("high_note"):
+			sprite.play("high_note")
+			await sprite.animation_finished  # wait for animation to end
+			sprite.play("default")  # go back to idle animation
+		else:
+			push_warning("Animation not found on " + source.char_name)
+	else:
+		push_warning("No AnimatedSprite2D found on " + source.char_name)
+		
 	var modified_damage = source.magic + base_damage
 	target.take_damage(modified_damage)
