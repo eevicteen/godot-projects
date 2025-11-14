@@ -1,0 +1,93 @@
+[gd_scene load_steps=15 format=3 uid="uid://djwmmrd66lyjd"]
+
+[ext_resource type="PackedScene" uid="uid://boosmympuvssl" path="res://assets/glTF/GardenLamp2.glb" id="1_036b0"]
+[ext_resource type="PackedScene" uid="uid://cjacbclbkht1o" path="res://assets/glTF/FlowerBed3.glb" id="1_aqk2v"]
+[ext_resource type="Script" uid="uid://dep4nwkqvmmgb" path="res://player/player.gd" id="1_f3sb7"]
+[ext_resource type="PackedScene" uid="uid://bjhc3b2x8aka3" path="res://assets/glTF/Grill1.glb" id="1_pkg7o"]
+[ext_resource type="PackedScene" uid="uid://63p61xov68u7" path="res://assets/glTF/Flowers1.glb" id="1_wse8f"]
+[ext_resource type="PackedScene" uid="uid://cmcgdw8qv456f" path="res://player/player.tscn" id="2_fj7yv"]
+[ext_resource type="PackedScene" uid="uid://cv8ndrwvueslf" path="res://assets/glTF/JapaneseSedge1.glb" id="3_tlwt5"]
+[ext_resource type="PackedScene" uid="uid://bek6kt8b4xr3c" path="res://assets/glTF/Gazebo1.glb" id="4_dwbse"]
+[ext_resource type="PackedScene" uid="uid://pcxf11ur1tqa" path="res://assets/glTF/Rock5.glb" id="5_gbfbk"]
+[ext_resource type="PackedScene" uid="uid://27n14xe4kfqo" path="res://assets/glTF/Tree1.glb" id="6_ioo17"]
+[ext_resource type="PackedScene" uid="uid://dd7fhyvxky3h0" path="res://assets/glTF/Pillar1.glb" id="8_2o6r5"]
+[ext_resource type="PackedScene" uid="uid://gbk546n1cwed" path="res://assets/glTF/FlowerPot5.glb" id="9_70uel"]
+[ext_resource type="PackedScene" uid="uid://bey45ib8ol0x6" path="res://assets/glTF/FlowerPot4.glb" id="11_hiqwa"]
+
+[sub_resource type="Environment" id="Environment_gv5m4"]
+background_mode = 1
+background_color = Color(0.784314, 0.988235, 0.94902, 1)
+background_energy_multiplier = 0.92
+
+[node name="World" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_gv5m4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+
+[node name="Flowers13" parent="MeshInstance3D" instance=ExtResource("1_wse8f")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, -25)
+
+[node name="Flowers12" parent="MeshInstance3D" instance=ExtResource("1_wse8f")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 15, 1, 20)
+
+[node name="Grill12" parent="MeshInstance3D" instance=ExtResource("1_pkg7o")]
+transform = Transform3D(1.26617, 0, 1.54817, 0, 2, 0, -1.54817, 0, 1.26617, -16.919, 2, -5.36)
+
+[node name="GardenLamp22" parent="MeshInstance3D" instance=ExtResource("1_036b0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 2.013, 4)
+
+[node name="JapaneseSedge15" parent="MeshInstance3D" instance=ExtResource("3_tlwt5")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0.405, 0.017, 15)
+
+[node name="FlowerBed32" parent="MeshInstance3D" instance=ExtResource("1_aqk2v")]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, -0.867, 0, 0.946)
+
+[node name="JapaneseSedge12" parent="MeshInstance3D" instance=ExtResource("3_tlwt5")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -0.866861, 0.00640154, 0.945582)
+
+[node name="Rock52" parent="MeshInstance3D" instance=ExtResource("5_gbfbk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.2855, 0.153383, 5.6357)
+
+[node name="Tree12" parent="MeshInstance3D" instance=ExtResource("6_ioo17")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 10, 13, 20)
+
+[node name="JapaneseSedge13" parent="MeshInstance3D" instance=ExtResource("3_tlwt5")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -5, 0, -1.862)
+
+[node name="JapaneseSedge14" parent="MeshInstance3D" instance=ExtResource("3_tlwt5")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 2.061, 0, 3.242)
+
+[node name="Pillar12" parent="MeshInstance3D" instance=ExtResource("8_2o6r5")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 12, 4, -15)
+
+[node name="JapaneseSedge16" parent="MeshInstance3D" instance=ExtResource("3_tlwt5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.588087, 0.0116596, 0.538277)
+
+[node name="JapaneseSedge17" parent="MeshInstance3D" instance=ExtResource("3_tlwt5")]
+transform = Transform3D(3, 0, 0, 0, 3, 0.000942478, 0, -0.000942478, 3, 5, 0, -0.511)
+
+[node name="FlowerPot52" parent="MeshInstance3D" instance=ExtResource("9_70uel")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 20, 3, -14)
+
+[node name="Gazebo12" parent="MeshInstance3D" instance=ExtResource("4_dwbse")]
+transform = Transform3D(2.3689, 0, 4.40321, 0, 5, 0, -4.40321, 0, 2.3689, -20, 1.479, -2.541)
+
+[node name="GardenLamp23" parent="MeshInstance3D" instance=ExtResource("1_036b0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.097, -13)
+
+[node name="JapaneseSedge20" parent="MeshInstance3D" instance=ExtResource("3_tlwt5")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -10, 0, -20)
+
+[node name="JapaneseSedge19" parent="MeshInstance3D" instance=ExtResource("3_tlwt5")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 20, 0, 5.385)
+
+[node name="JapaneseSedge18" parent="MeshInstance3D" instance=ExtResource("3_tlwt5")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 10, 0, 0)
+
+[node name="FlowerPot42" parent="MeshInstance3D" instance=ExtResource("11_hiqwa")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 25, 2, 0)
+
+[node name="Player" parent="." instance=ExtResource("2_fj7yv")]
+script = ExtResource("1_f3sb7")
