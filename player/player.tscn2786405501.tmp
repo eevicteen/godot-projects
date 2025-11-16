@@ -55,7 +55,6 @@ skeleton = NodePath("")
 transform = Transform3D(0.911741, 0.410767, 0, -0.410767, 0.911741, 0, 0, 0, 1, -0.041268, 0.836238, 0.213982)
 
 [node name="FirePoint" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.887215, 1.46464)
 
 [node name="Head" type="Node3D" parent="."]
 script = ExtResource("3_g1dw6")
@@ -68,9 +67,9 @@ libraries = {
 &"": SubResource("AnimationLibrary_qjkh3")
 }
 
-[node name="Crosshair" type="CanvasLayer" parent="."]
+[node name="Control" type="CanvasLayer" parent="."]
 
-[node name="TextureRect" type="TextureRect" parent="Crosshair"]
+[node name="TextureRect" type="TextureRect" parent="Control"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

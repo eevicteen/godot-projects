@@ -1,10 +1,10 @@
 [gd_scene load_steps=9 format=3 uid="uid://cmcgdw8qv456f"]
 
 [ext_resource type="Script" uid="uid://dep4nwkqvmmgb" path="res://player/player.gd" id="1_rkbax"]
+[ext_resource type="PackedScene" uid="uid://cxv1akaccmh3w" path="res://player/projectile.tscn" id="2_qjkh3"]
 [ext_resource type="PackedScene" uid="uid://bi7qvtiwq8phw" path="res://player/blue_team_archer_unit.tscn" id="2_rkbax"]
 [ext_resource type="Script" uid="uid://bh612v3pkjyju" path="res://player/head.gd" id="3_g1dw6"]
 [ext_resource type="Texture2D" uid="uid://cyh3f2p80om86" path="res://assets/crosshair texture.png" id="4_yw30f"]
-[ext_resource type="Script" uid="uid://0kweu8h63khc" path="res://player/fire_cast.gd" id="5_qjkh3"]
 
 [sub_resource type="Animation" id="Animation_yw30f"]
 length = 0.001
@@ -45,6 +45,7 @@ _data = {
 [node name="Player" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00310659, 0, -0.000293732)
 script = ExtResource("1_rkbax")
+projectile_scene = ExtResource("2_qjkh3")
 
 [node name="Model" parent="." instance=ExtResource("2_rkbax")]
 
@@ -52,10 +53,7 @@ script = ExtResource("1_rkbax")
 skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.911741, 0.410767, 0, -0.410767, 0.911741, 0, 0, 0, 1, -0.041268, 0.836238, 0.213982)
-
-[node name="FirePoint" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.887215, 1.46464)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 1.5)
 
 [node name="Head" type="Node3D" parent="."]
 script = ExtResource("3_g1dw6")
@@ -68,9 +66,9 @@ libraries = {
 &"": SubResource("AnimationLibrary_qjkh3")
 }
 
-[node name="Crosshair" type="CanvasLayer" parent="."]
+[node name="Control" type="CanvasLayer" parent="."]
 
-[node name="TextureRect" type="TextureRect" parent="Crosshair"]
+[node name="TextureRect" type="TextureRect" parent="Control"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -84,12 +82,3 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("4_yw30f")
 expand_mode = 1
-
-[node name="AimTarget" type="Node3D" parent="."]
-script = ExtResource("5_qjkh3")
-
-[node name="AimCast" type="RayCast3D" parent="AimTarget"]
-debug_shape_custom_color = Color(0, 0, 0.784314, 0.776471)
-
-[node name="FireCast" type="RayCast3D" parent="AimTarget"]
-debug_shape_custom_color = Color(0, 0.964706, 0, 0.643137)

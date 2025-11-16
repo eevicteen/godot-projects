@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://bi7qvtiwq8phw"]
+
+[ext_resource type="PackedScene" uid="uid://cgg7my7jgcys8" path="res://player/FBX/BlueTeam_Archer_Unit.fbx" id="1_mu6am"]
+
+[node name="BlueTeam_Archer_Unit" instance=ExtResource("1_mu6am")]
+
+[node name="Skeleton3D" parent="BlueTeam_Archer_Armature" index="0"]
+bones/1/rotation = Quaternion(0, 0, 0, 1)
+bones/4/position = Vector3(0.00315907, 0.00435764, 0.00177603)
+bones/4/rotation = Quaternion(-0.44935, -0.198051, -0.815945, -0.305115)
+bones/5/rotation = Quaternion(-0.328315, -0.422909, -0.179, 0.825419)
+bones/8/rotation = Quaternion(7.46339e-09, -7.46339e-09, 0.0585594, 0.998284)
+bones/10/rotation = Quaternion(-0.385753, 0.0112363, 0.899442, 0.205118)
+bones/11/rotation = Quaternion(0.0490184, 0.22501, 0.741802, 0.629839)
+bones/14/rotation = Quaternion(1.40487e-09, -9.36581e-10, 0.105821, 0.994385)
+bones/16/position = Vector3(-0.00118536, 0.00245099, -0.000667993)
+bones/16/rotation = Quaternion(0.666137, 0.132462, -0.730746, -0.0687507)
+bones/18/rotation = Quaternion(1, -5.9523e-08, -7.54979e-08, -4.43263e-15)
+bones/19/rotation = Quaternion(-9.4157e-08, 0.707107, -0.707107, -9.4157e-08)
+bones/21/rotation = Quaternion(1, 5.9523e-08, 7.54979e-08, -4.55509e-15)
+bones/24/position = Vector3(0.00295079, 0.00215519, 0.00257853)
+bones/24/rotation = Quaternion(0, 0, 1, 0)
+bones/26/position = Vector3(-0.00295079, 0.00215519, 0.00257853)
+bones/26/rotation = Quaternion(0, 0, 1, 0)
+
+[node name="CrossBow01" parent="BlueTeam_Archer_Armature/Skeleton3D" index="5"]
+transform = Transform3D(1, 0, 0, 0, 0.986398, 0.164376, 0, -0.164376, 0.986398, 0, -0.00513998, -0.000484404)

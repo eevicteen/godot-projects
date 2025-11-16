@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmcgdw8qv456f"]
+
+[ext_resource type="PackedScene" uid="uid://cgg7my7jgcys8" path="res://player/FBX/BlueTeam_Archer_Unit.fbx" id="1_oul6g"]
+[ext_resource type="Script" uid="uid://dep4nwkqvmmgb" path="res://player/player.gd" id="1_rkbax"]
+
+[node name="Player" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00310659, 0, -0.000293732)
+script = ExtResource("1_rkbax")
+
+[node name="BlueTeam_Archer_Unit" parent="." instance=ExtResource("1_oul6g")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0.592238, 1.19209e-07, 1.12224)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.480689, 2.5602, -0.190012)
+fov = 106.199
+near = 0.105
+far = 36.33
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 1.5)

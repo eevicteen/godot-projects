@@ -1,8 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://djwmmrd66lyjd"]
+[gd_scene load_steps=14 format=3 uid="uid://djwmmrd66lyjd"]
 
 [ext_resource type="PackedScene" uid="uid://boosmympuvssl" path="res://assets/glTF/GardenLamp2.glb" id="1_036b0"]
 [ext_resource type="PackedScene" uid="uid://cjacbclbkht1o" path="res://assets/glTF/FlowerBed3.glb" id="1_aqk2v"]
-[ext_resource type="Script" uid="uid://dep4nwkqvmmgb" path="res://player/player.gd" id="1_f3sb7"]
 [ext_resource type="PackedScene" uid="uid://bjhc3b2x8aka3" path="res://assets/glTF/Grill1.glb" id="1_pkg7o"]
 [ext_resource type="PackedScene" uid="uid://63p61xov68u7" path="res://assets/glTF/Flowers1.glb" id="1_wse8f"]
 [ext_resource type="PackedScene" uid="uid://cmcgdw8qv456f" path="res://player/player.tscn" id="2_fj7yv"]
@@ -33,7 +32,7 @@ transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, -25)
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 15, 1, 20)
 
 [node name="Grill12" parent="MeshInstance3D" instance=ExtResource("1_pkg7o")]
-transform = Transform3D(1.26617, 0, 1.54817, 0, 2, 0, -1.54817, 0, 1.26617, -16.919, 2, -5.36)
+transform = Transform3D(1.26617, 0, 1.54817, 0, 2, 0, -1.54817, 0, 1.26617, -16.919, 1.44474, -5.36)
 
 [node name="GardenLamp22" parent="MeshInstance3D" instance=ExtResource("1_036b0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 2.013, 4)
@@ -90,4 +89,4 @@ transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 10, 0, 0)
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 25, 2, 0)
 
 [node name="Player" parent="." instance=ExtResource("2_fj7yv")]
-script = ExtResource("1_f3sb7")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.33547, -0.331832, -8.78744)
