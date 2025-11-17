@@ -1,0 +1,54 @@
+[gd_scene load_steps=7 format=3 uid="uid://cq0he64uabtwv"]
+
+[ext_resource type="Script" uid="uid://du8lu6a5kpdkk" path="res://enemy/big_explosion.gd" id="1_fgu4c"]
+
+[sub_resource type="Gradient" id="Gradient_fgu4c"]
+offsets = PackedFloat32Array(0, 0.396154, 0.819231, 1)
+colors = PackedColorArray(0.960784, 0.956863, 0, 1, 0.976471, 0.439216, 0.0745098, 1, 0.843137, 0.14902, 0.0313726, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_k2wbl"]
+gradient = SubResource("Gradient_fgu4c")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dr5kc"]
+emission_shape = 1
+emission_sphere_radius = 1.1
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_min = 1.0
+initial_velocity_max = 2.0
+gravity = Vector3(0, 0, 0)
+damping_min = 0.1
+damping_max = 0.2
+scale_min = 1.5
+scale_max = 4.0
+color = Color(1, 0.1, 0.1, 1)
+color_ramp = SubResource("GradientTexture1D_k2wbl")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fgu4c"]
+albedo_color = Color(1, 0.0862745, 0.0941176, 1)
+proximity_fade_enabled = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_k2wbl"]
+material = SubResource("StandardMaterial3D_fgu4c")
+
+[node name="BigExplosion" type="Node3D"]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 1, 1, 1)
+visibility_parent = NodePath("GPUParticles3D")
+script = ExtResource("1_fgu4c")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, 0)
+emitting = false
+amount = 150
+lifetime = 9.48
+one_shot = true
+speed_scale = 4.91
+explosiveness = 1.0
+randomness = 1.0
+trail_lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_dr5kc")
+draw_pass_1 = SubResource("SphereMesh_k2wbl")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true

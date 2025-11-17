@@ -1,11 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://cxv1akaccmh3w"]
+[gd_scene load_steps=6 format=3 uid="uid://cxv1akaccmh3w"]
 
 [ext_resource type="Script" uid="uid://cso6psgmk3en7" path="res://player/projectile.gd" id="1_d1ygb"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_islhu"]
+albedo_color = Color(0.0745098, 0.0705882, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d1ygb"]
+
 [sub_resource type="SphereMesh" id="SphereMesh_d1ygb"]
+material = SubResource("StandardMaterial3D_d1ygb")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q5b1o"]
 
 [node name="Projectile" type="Node3D"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 script = ExtResource("1_d1ygb")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.6, 0, 0, 0, -2.62268e-08, 0.6, 0, -0.6, -2.62268e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_islhu")
+transparency = 0.5
 mesh = SubResource("SphereMesh_d1ygb")
+surface_material_override/0 = SubResource("StandardMaterial3D_q5b1o")

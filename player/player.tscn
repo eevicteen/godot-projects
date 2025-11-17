@@ -1,10 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://cmcgdw8qv456f"]
+[gd_scene load_steps=11 format=3 uid="uid://cmcgdw8qv456f"]
 
 [ext_resource type="Script" uid="uid://dep4nwkqvmmgb" path="res://player/player.gd" id="1_rkbax"]
+[ext_resource type="PackedScene" uid="uid://cxv1akaccmh3w" path="res://player/projectile.tscn" id="2_g6k8r"]
 [ext_resource type="PackedScene" uid="uid://bi7qvtiwq8phw" path="res://player/blue_team_archer_unit.tscn" id="2_rkbax"]
 [ext_resource type="Script" uid="uid://bh612v3pkjyju" path="res://player/head.gd" id="3_g1dw6"]
 [ext_resource type="Texture2D" uid="uid://cyh3f2p80om86" path="res://assets/crosshair texture.png" id="4_yw30f"]
 [ext_resource type="Script" uid="uid://0kweu8h63khc" path="res://player/fire_cast.gd" id="5_qjkh3"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_qjkh3"]
+radius = 1.38135
 
 [sub_resource type="Animation" id="Animation_yw30f"]
 length = 0.001
@@ -44,7 +48,9 @@ _data = {
 
 [node name="Player" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00310659, 0, -0.000293732)
+collision_mask = 2
 script = ExtResource("1_rkbax")
+projectile = ExtResource("2_g6k8r")
 
 [node name="Model" parent="." instance=ExtResource("2_rkbax")]
 
@@ -52,7 +58,8 @@ script = ExtResource("1_rkbax")
 skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.911741, 0.410767, 0, -0.410767, 0.911741, 0, 0, 0, 1, -0.041268, 0.836238, 0.213982)
+transform = Transform3D(0.0993719, 0, -0.99505, 0, 1, 0, 0.99505, 0, 0.0993719, -0.341849, 0.786213, 0.304109)
+shape = SubResource("CylinderShape3D_qjkh3")
 
 [node name="FirePoint" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.887215, 1.46464)

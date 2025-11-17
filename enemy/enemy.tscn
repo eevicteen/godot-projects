@@ -1,3 +1,22 @@
-[gd_scene format=3 uid="uid://bjpmfn0dhwsfo"]
+[gd_scene load_steps=6 format=3 uid="uid://bjpmfn0dhwsfo"]
 
-[node name="Enemy" type="Node2D"]
+[ext_resource type="Script" uid="uid://b7rsoqxmrym3r" path="res://enemy/enemy.gd" id="1_2mvqj"]
+[ext_resource type="PackedScene" uid="uid://qmtux3h6jtrt" path="res://enemy/FBX/RedTeam_SwordsMen_Unit.fbx" id="2_ofsxj"]
+[ext_resource type="PackedScene" uid="uid://cq0he64uabtwv" path="res://enemy/big_explosion.tscn" id="2_p200p"]
+[ext_resource type="PackedScene" uid="uid://lim0xkow02dg" path="res://enemy/small_explosion.tscn" id="3_pmsee"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ofsxj"]
+height = 2.03076
+radius = 0.643066
+
+[node name="enemy" type="CharacterBody3D"]
+collision_layer = 2
+script = ExtResource("1_2mvqj")
+big_explosion = ExtResource("2_p200p")
+small_explosion = ExtResource("3_pmsee")
+
+[node name="RedTeam_SwordsMen_Unit" parent="." instance=ExtResource("2_ofsxj")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.919678, 0)
+shape = SubResource("CylinderShape3D_ofsxj")

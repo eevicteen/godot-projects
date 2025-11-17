@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=3 uid="uid://lim0xkow02dg"]
+
+[ext_resource type="Script" uid="uid://dymptuslhe6gv" path="res://enemy/small_explosion.gd" id="1_io8mx"]
+
+[sub_resource type="Gradient" id="Gradient_io8mx"]
+offsets = PackedFloat32Array(0, 0.41092, 0.95977)
+colors = PackedColorArray(0.911609, 0.837874, 0.0983206, 1, 0.77, 0.275917, 0.1771, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_vh2sj"]
+gradient = SubResource("Gradient_io8mx")
+
+[sub_resource type="Gradient" id="Gradient_vh2sj"]
+offsets = PackedFloat32Array(0, 0.468391, 0.91954, 1)
+colors = PackedColorArray(0.913725, 0.682353, 0, 1, 0.939728, 0.483407, 0, 1, 0.895536, 0.245785, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_uqulp"]
+gradient = SubResource("Gradient_vh2sj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jf24d"]
+emission_shape_scale = Vector3(0, 1, 1)
+emission_shape = 1
+emission_sphere_radius = 0.2
+initial_velocity_min = 1.0
+initial_velocity_max = 3.0
+gravity = Vector3(0, 0, 0)
+damping_min = 0.1
+damping_max = 0.2
+color = Color(0.878431, 0.270588, 0.121569, 1)
+color_ramp = SubResource("GradientTexture1D_uqulp")
+color_initial_ramp = SubResource("GradientTexture1D_vh2sj")
+hue_variation_min = -2.23517e-08
+hue_variation_max = -2.23517e-08
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_io8mx"]
+albedo_color = Color(1, 0.447059, 0.0588235, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_io8mx"]
+material = SubResource("StandardMaterial3D_io8mx")
+
+[node name="SmallExplosion" type="Node3D"]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 1, 1, 1)
+visibility_parent = NodePath("GPUParticles3D")
+script = ExtResource("1_io8mx")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
+emitting = false
+amount = 50
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+randomness = 0.5
+trail_lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_jf24d")
+draw_pass_1 = SubResource("SphereMesh_io8mx")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,9 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://djwmmrd66lyjd"]
+[gd_scene load_steps=27 format=3 uid="uid://djwmmrd66lyjd"]
 
+[ext_resource type="Script" uid="uid://b7rsoqxmrym3r" path="res://enemy/enemy.gd" id="1_2o6r5"]
 [ext_resource type="PackedScene" uid="uid://boosmympuvssl" path="res://assets/glTF/GardenLamp2.glb" id="1_036b0"]
 [ext_resource type="PackedScene" uid="uid://cjacbclbkht1o" path="res://assets/glTF/FlowerBed3.glb" id="1_aqk2v"]
 [ext_resource type="PackedScene" uid="uid://bjhc3b2x8aka3" path="res://assets/glTF/Grill1.glb" id="1_pkg7o"]
 [ext_resource type="PackedScene" uid="uid://63p61xov68u7" path="res://assets/glTF/Flowers1.glb" id="1_wse8f"]
+[ext_resource type="PackedScene" uid="uid://bjpmfn0dhwsfo" path="res://enemy/enemy.tscn" id="2_70uel"]
 [ext_resource type="PackedScene" uid="uid://cmcgdw8qv456f" path="res://player/player.tscn" id="2_fj7yv"]
 [ext_resource type="PackedScene" uid="uid://cv8ndrwvueslf" path="res://assets/glTF/JapaneseSedge1.glb" id="3_tlwt5"]
 [ext_resource type="PackedScene" uid="uid://bek6kt8b4xr3c" path="res://assets/glTF/Gazebo1.glb" id="4_dwbse"]
@@ -18,39 +20,116 @@ background_mode = 1
 background_color = Color(0.784314, 0.988235, 0.94902, 1)
 background_energy_multiplier = 0.92
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_70uel"]
+size = Vector3(0.223819, 1.80554, 2.05043)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_70uel"]
+radius = 1.80735
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_70uel"]
+radius = 0.167032
+height = 7.89456
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hiqwa"]
+radius = 1.95287
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_70uel"]
+height = 11.3695
+radius = 0.804688
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_2u3nc"]
+radius = 2.64841
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_hiqwa"]
+height = 7.83984
+radius = 0.318359
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_2u3nc"]
+height = 4.04004
+radius = 1.55469
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_udxuc"]
+height = 2.92871
+radius = 0.977539
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ikiii"]
+height = 3.06494
+radius = 1.2124
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hiqwa"]
+size = Vector3(2.03528, 8.98224, 2.36182)
+
 [node name="World" type="Node3D"]
+script = ExtResource("1_2o6r5")
+
+[node name="enemy" parent="." instance=ExtResource("2_70uel")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_gv5m4")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+layers = 2
 
-[node name="Flowers13" parent="MeshInstance3D" instance=ExtResource("1_wse8f")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, -25)
+[node name="flowerbed" type="StaticBody3D" parent="MeshInstance3D"]
+collision_layer = 2
 
-[node name="Flowers12" parent="MeshInstance3D" instance=ExtResource("1_wse8f")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 15, 1, 20)
+[node name="FlowerBed32" parent="MeshInstance3D/flowerbed" instance=ExtResource("1_aqk2v")]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, -0.867, 0, 0.946)
 
-[node name="Grill12" parent="MeshInstance3D" instance=ExtResource("1_pkg7o")]
-transform = Transform3D(1.26617, 0, 1.54817, 0, 2, 0, -1.54817, 0, 1.26617, -16.919, 1.44474, -5.36)
+[node name="CollisionPolygon3D" type="CollisionShape3D" parent="MeshInstance3D/flowerbed"]
+transform = Transform3D(19.5334, 0, 4.29471, 0, 20, 0, -4.29471, 0, 19.5334, 26.7816, -6.46973, -6.68978)
+shape = SubResource("BoxShape3D_70uel")
 
-[node name="GardenLamp22" parent="MeshInstance3D" instance=ExtResource("1_036b0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 2.013, 4)
+[node name="CollisionPolygon3D3" type="CollisionShape3D" parent="MeshInstance3D/flowerbed"]
+transform = Transform3D(14.5315, 0, -13.7417, 0, 20, 0, 13.7417, 0, 14.5315, 20.0302, -7.28808, 19.7)
+shape = SubResource("BoxShape3D_70uel")
+
+[node name="CollisionPolygon3D2" type="CollisionShape3D" parent="MeshInstance3D/flowerbed"]
+transform = Transform3D(19.5334, 0, -4.29471, 0, 20, 0, 4.29471, 0, 19.5334, 27.0655, -6.46, 7.79081)
+shape = SubResource("BoxShape3D_70uel")
+
+[node name="CollisionPolygon3D4" type="CollisionShape3D" parent="MeshInstance3D/flowerbed"]
+transform = Transform3D(-5.37839, 0, 19.2633, 0, 20, 0, -19.2633, 0, -5.37839, 10.243, -7.943, 28)
+shape = SubResource("BoxShape3D_70uel")
+
+[node name="CollisionPolygon3D5" type="CollisionShape3D" parent="MeshInstance3D/flowerbed"]
+transform = Transform3D(4.22336, -0.193303, 19.548, -1.6729, 19.9221, 0.558433, -19.4773, -1.75302, 4.19074, -7.24826, -8.07158, 30.2884)
+shape = SubResource("BoxShape3D_70uel")
+
+[node name="CollisionPolygon3D6" type="CollisionShape3D" parent="MeshInstance3D/flowerbed"]
+transform = Transform3D(13.6517, 0.737181, 14.5976, -1.6729, 19.9221, 0.558433, -14.5201, -1.60219, 13.6601, -19.6055, -8.14714, 24.7177)
+shape = SubResource("BoxShape3D_70uel")
+
+[node name="CollisionPolygon3D7" type="CollisionShape3D" parent="MeshInstance3D/flowerbed"]
+transform = Transform3D(19.1802, 1.45708, 5.47705, -1.6729, 19.9221, 0.558433, -5.41503, -0.993671, 19.2273, -26.0727, -8.25637, 16.2344)
+shape = SubResource("BoxShape3D_70uel")
+
+[node name="CollisionPolygon3D8" type="CollisionShape3D" parent="MeshInstance3D/flowerbed"]
+transform = Transform3D(19.1546, 1.76198, -5.47705, -1.6729, 19.9221, 0.558433, 5.50491, -0.076698, 19.2273, -35, -8.456, 9.153)
+shape = SubResource("BoxShape3D_70uel")
+
+[node name="CollisionPolygon3D9" type="CollisionShape3D" parent="MeshInstance3D/flowerbed"]
+transform = Transform3D(13.6343, 1.55274, -14.5498, -1.6729, 19.9221, 0.558433, 14.5365, 0.836329, 13.711, -38.6824, -7.91797, -4.94419)
+shape = SubResource("BoxShape3D_70uel")
+
+[node name="CollisionPolygon3D10" type="CollisionShape3D" parent="MeshInstance3D/flowerbed"]
+transform = Transform3D(4.166, 0.897571, -19.5407, -1.6729, 19.9221, 0.558433, 19.4896, 1.51816, 4.22485, -10.4862, -15.673, -27.5646)
+shape = SubResource("BoxShape3D_70uel")
+
+[node name="CollisionPolygon3D11" type="CollisionShape3D" parent="MeshInstance3D/flowerbed"]
+transform = Transform3D(-6.46695, -0.0125441, -18.9256, -1.6729, 19.9221, 0.558433, 18.8515, 1.7636, -6.4428, 5.86502, -15.551, -28.9727)
+shape = SubResource("BoxShape3D_70uel")
+
+[node name="CollisionPolygon3D12" type="CollisionShape3D" parent="MeshInstance3D/flowerbed"]
+transform = Transform3D(-13.7779, -0.751135, -14.4778, -1.67291, 19.9221, 0.558433, 14.4004, 1.5957, -13.787, 14.6432, -15.6915, -25.5037)
+shape = SubResource("BoxShape3D_70uel")
 
 [node name="JapaneseSedge15" parent="MeshInstance3D" instance=ExtResource("3_tlwt5")]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0.405, 0.017, 15)
 
-[node name="FlowerBed32" parent="MeshInstance3D" instance=ExtResource("1_aqk2v")]
-transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, -0.867, 0, 0.946)
-
 [node name="JapaneseSedge12" parent="MeshInstance3D" instance=ExtResource("3_tlwt5")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -0.866861, 0.00640154, 0.945582)
-
-[node name="Rock52" parent="MeshInstance3D" instance=ExtResource("5_gbfbk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.2855, 0.153383, 5.6357)
-
-[node name="Tree12" parent="MeshInstance3D" instance=ExtResource("6_ioo17")]
-transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 10, 13, 20)
 
 [node name="JapaneseSedge13" parent="MeshInstance3D" instance=ExtResource("3_tlwt5")]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -5, 0, -1.862)
@@ -58,23 +137,11 @@ transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -5, 0, -1.862)
 [node name="JapaneseSedge14" parent="MeshInstance3D" instance=ExtResource("3_tlwt5")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 2.061, 0, 3.242)
 
-[node name="Pillar12" parent="MeshInstance3D" instance=ExtResource("8_2o6r5")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 12, 4, -15)
-
 [node name="JapaneseSedge16" parent="MeshInstance3D" instance=ExtResource("3_tlwt5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.588087, 0.0116596, 0.538277)
 
 [node name="JapaneseSedge17" parent="MeshInstance3D" instance=ExtResource("3_tlwt5")]
 transform = Transform3D(3, 0, 0, 0, 3, 0.000942478, 0, -0.000942478, 3, 5, 0, -0.511)
-
-[node name="FlowerPot52" parent="MeshInstance3D" instance=ExtResource("9_70uel")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 20, 3, -14)
-
-[node name="Gazebo12" parent="MeshInstance3D" instance=ExtResource("4_dwbse")]
-transform = Transform3D(2.3689, 0, 4.40321, 0, 5, 0, -4.40321, 0, 2.3689, -20, 1.479, -2.541)
-
-[node name="GardenLamp23" parent="MeshInstance3D" instance=ExtResource("1_036b0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.097, -13)
 
 [node name="JapaneseSedge20" parent="MeshInstance3D" instance=ExtResource("3_tlwt5")]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -10, 0, -20)
@@ -85,8 +152,127 @@ transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 20, 0, 5.385)
 [node name="JapaneseSedge18" parent="MeshInstance3D" instance=ExtResource("3_tlwt5")]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 10, 0, 0)
 
-[node name="FlowerPot42" parent="MeshInstance3D" instance=ExtResource("11_hiqwa")]
+[node name="rock" type="StaticBody3D" parent="MeshInstance3D"]
+collision_layer = 2
+
+[node name="Rock52" parent="MeshInstance3D/rock" instance=ExtResource("5_gbfbk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.2855, 0.153383, 5.6357)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/rock"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.3807, -0.0770459, 5.31633)
+shape = SubResource("SphereShape3D_70uel")
+
+[node name="pole1" type="StaticBody3D" parent="MeshInstance3D"]
+collision_layer = 2
+
+[node name="GardenLamp23" parent="MeshInstance3D/pole1" instance=ExtResource("1_036b0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.097, -13)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/pole1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -13)
+shape = SubResource("CapsuleShape3D_70uel")
+
+[node name="pole2" type="StaticBody3D" parent="MeshInstance3D"]
+collision_layer = 2
+
+[node name="GardenLamp22" parent="MeshInstance3D/pole2" instance=ExtResource("1_036b0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 2.013, 4)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/pole2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 4)
+shape = SubResource("CapsuleShape3D_70uel")
+
+[node name="flower1" type="StaticBody3D" parent="MeshInstance3D"]
+collision_layer = 2
+
+[node name="Flowers12" parent="MeshInstance3D/flower1" instance=ExtResource("1_wse8f")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 15, 1, 20)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/flower1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 20)
+shape = SubResource("SphereShape3D_hiqwa")
+
+[node name="gazebo" type="StaticBody3D" parent="MeshInstance3D"]
+collision_layer = 2
+
+[node name="leg1" type="CollisionShape3D" parent="MeshInstance3D/gazebo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 4.685, -6.5)
+shape = SubResource("CylinderShape3D_70uel")
+
+[node name="Gazebo12" parent="MeshInstance3D/gazebo" instance=ExtResource("4_dwbse")]
+transform = Transform3D(2.5658, 0, 3.06866, 0, 4, 0, -3.06866, 0, 2.5658, -18.2737, 4.87171, -0.120548)
+
+[node name="leg2" type="CollisionShape3D" parent="MeshInstance3D/gazebo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 4.685, -5)
+shape = SubResource("CylinderShape3D_70uel")
+
+[node name="leg3" type="CollisionShape3D" parent="MeshInstance3D/gazebo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.7, 4.685, 5)
+shape = SubResource("CylinderShape3D_70uel")
+
+[node name="leg4" type="CollisionShape3D" parent="MeshInstance3D/gazebo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.4606, 5.05832, 6.19116)
+shape = SubResource("CylinderShape3D_70uel")
+
+[node name="flower2" type="StaticBody3D" parent="MeshInstance3D"]
+collision_layer = 2
+
+[node name="Flowers13" parent="MeshInstance3D/flower2" instance=ExtResource("1_wse8f")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, -25)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/flower2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -25)
+shape = SubResource("SphereShape3D_2u3nc")
+
+[node name="tree" type="StaticBody3D" parent="MeshInstance3D"]
+collision_layer = 2
+
+[node name="Tree12" parent="MeshInstance3D/tree" instance=ExtResource("6_ioo17")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 10, 13, 20)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/tree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2.92, 20)
+shape = SubResource("CylinderShape3D_hiqwa")
+
+[node name="pot1" type="StaticBody3D" parent="MeshInstance3D"]
+collision_layer = 2
+
+[node name="FlowerPot42" parent="MeshInstance3D/pot1" instance=ExtResource("11_hiqwa")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 25, 2, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/pot1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 1.02, -14)
+shape = SubResource("CylinderShape3D_2u3nc")
+
+[node name="pot2" type="StaticBody3D" parent="MeshInstance3D"]
+collision_layer = 2
+
+[node name="FlowerPot52" parent="MeshInstance3D/pot2" instance=ExtResource("9_70uel")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 20, 3, -14)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/pot2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 1.16958, 0)
+shape = SubResource("CylinderShape3D_udxuc")
+
+[node name="grill" type="StaticBody3D" parent="MeshInstance3D"]
+collision_layer = 2
+
+[node name="Grill12" parent="MeshInstance3D/grill" instance=ExtResource("1_pkg7o")]
+transform = Transform3D(1.26617, 0, 1.54817, 0, 2, 0, -1.54817, 0, 1.26617, -21.0316, 1.44474, -5.36)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/grill"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 0.532, -5)
+shape = SubResource("CylinderShape3D_ikiii")
+
+[node name="pillar" type="StaticBody3D" parent="MeshInstance3D"]
+collision_layer = 2
+
+[node name="Pillar12" parent="MeshInstance3D/pillar" instance=ExtResource("8_2o6r5")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 12, 4, -15)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/pillar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3.99124, -15)
+shape = SubResource("BoxShape3D_hiqwa")
 
 [node name="Player" parent="." instance=ExtResource("2_fj7yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.33547, -0.331832, -8.78744)

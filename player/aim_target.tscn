@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://idys8xfftac0"]
+
+[node name="AimTarget" type="Node3D"]

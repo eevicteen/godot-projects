@@ -1,17 +1,23 @@
 extends CharacterBody3D
 
+#  Nodes 
 @onready var head = $Head
 @onready var cam = $Head/Camera3D
 @onready var aim_target = $AimTarget
 @onready var camera_anim = $Head/Camera3D/AnimationPlayer
 
+# Movement
 var sensitivity := 0.06
-var pitch := 0.0   # X rotation
-var yaw := 0.0     # Y rotation
-var max_pitch := 40
-var min_pitch := -40
+var pitch := 0.0
+var yaw := 0.0
+var max_pitch := 20
+var min_pitch := -20
 var move_input: Vector3 = Vector3.ZERO
 @export var move_speed := 5.0
+
+# Projectile 
+@export var projectile: PackedScene 
+
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
@@ -27,14 +33,16 @@ func _input(event):
 		head.rotation_degrees.x = pitch
 
 func _process(delta):
-	# Handle shooting
+	# Handle aiming animation
 	if Input.is_action_just_pressed('aim'):
 		camera_anim.play("aim")
 	if Input.is_action_just_released('aim'):
 		camera_anim.play_backwards('aim')
+
+	# Handle shooting
 	if Input.is_action_just_pressed("shoot"):
+		#print("shoot")
 		shoot()
-	
 
 func _physics_process(delta): 
 	handle_movement(delta) 
@@ -45,7 +53,7 @@ func handle_movement(delta):
 	input_dir.z = Input.get_action_strength("move_forward") - Input.get_action_strength("move_backward") 
 	input_dir = input_dir.normalized() 
 	if input_dir != Vector3.ZERO: 
-		var forward = global_transform.basis.z 
+		var forward = -global_transform.basis.z 
 		forward.y = 0 
 		forward = forward.normalized() 
 		var right = -global_transform.basis.x 
@@ -59,10 +67,21 @@ func handle_movement(delta):
 
 func shoot():
 	var viewport_center = get_viewport().get_visible_rect().size / 2
-
-	# Origin and direction from camera
 	var origin = cam.project_ray_origin(viewport_center)
 	var dir = cam.project_ray_normal(viewport_center).normalized()
+	aim_target.fire_shot(origin, dir)  
 
-	# Fire the shot
-	aim_target.fire_shot(origin, dir)
+	if projectile:
+		#print("projectile working") 
+		var proj_instance = projectile.instantiate()
+		get_tree().current_scene.add_child(proj_instance)
+		
+		#Spawn slightly in front of the camera
+		var spawn_pos = cam.global_transform.origin + (-cam.global_transform.basis.z) * 1.5
+		proj_instance.global_transform.origin = spawn_pos
+
+		# Target point a bit further forward
+		var target_point = spawn_pos + (-cam.global_transform.basis.z) * 10
+		proj_instance.setup(target_point, 5.0)
+		
+		
