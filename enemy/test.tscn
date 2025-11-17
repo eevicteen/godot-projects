@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cvqc1nf0yejvw"]
+
+[ext_resource type="PackedScene" uid="uid://qmtux3h6jtrt" path="res://enemy/FBX/RedTeam_SwordsMen_Unit.fbx" id="1_8pm7a"]
+
+[node name="RedTeam_SwordsMen_Unit" instance=ExtResource("1_8pm7a")]
+
+[node name="OneHand_Sword_Iron" parent="RedTeam_SwordsMen_Armature/Skeleton3D" index="4"]
+mesh = null
+
+[node name="Shield01" parent="RedTeam_SwordsMen_Armature/Skeleton3D" index="5"]
+mesh = null

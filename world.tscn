@@ -1,6 +1,5 @@
-[gd_scene load_steps=27 format=3 uid="uid://djwmmrd66lyjd"]
+[gd_scene load_steps=26 format=3 uid="uid://djwmmrd66lyjd"]
 
-[ext_resource type="Script" uid="uid://b7rsoqxmrym3r" path="res://enemy/enemy.gd" id="1_2o6r5"]
 [ext_resource type="PackedScene" uid="uid://boosmympuvssl" path="res://assets/glTF/GardenLamp2.glb" id="1_036b0"]
 [ext_resource type="PackedScene" uid="uid://cjacbclbkht1o" path="res://assets/glTF/FlowerBed3.glb" id="1_aqk2v"]
 [ext_resource type="PackedScene" uid="uid://bjhc3b2x8aka3" path="res://assets/glTF/Grill1.glb" id="1_pkg7o"]
@@ -60,7 +59,6 @@ radius = 1.2124
 size = Vector3(2.03528, 8.98224, 2.36182)
 
 [node name="World" type="Node3D"]
-script = ExtResource("1_2o6r5")
 
 [node name="enemy" parent="." instance=ExtResource("2_70uel")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)

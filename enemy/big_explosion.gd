@@ -6,5 +6,6 @@ extends Node3D
 func _ready():
 	particles.restart()
 	timer.start()
+	
 func _on_Timer_timeout():
 	queue_free()
